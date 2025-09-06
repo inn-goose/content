@@ -46,7 +46,7 @@ The most common Arduino platform. Serves as the baseline for my calculations.
 
 | CPU Clock | Cycle Length | Operation Length | Cycles per Operation |
 | -- | :--: | :--: | :--: |
-| 16 MHz | 62.5 ns | 10600 ns | 170 |
+| 16 MHz | 62.5 ns | 10,600 ns | 170 |
 
 $\frac{1 \text{ sec}}{16,000,000 \text{ Hz}} = 62.5  \text{ ns}$
 
@@ -116,13 +116,13 @@ UNO R4 replaces the classic UNO with an ATmega328P, increasing the CPU clock spe
 
 | CPU Clock | Cycle Length | Operation Length | Cycles per Operation |
 | :--: | :--: | :--: | :--: |
-| 48 MHz | 20.8 ns | 4420 ns | 213 |
+| 48 MHz | 20.8 ns | 4,420 ns | 213 |
 
 $\frac{1 \text{ sec}}{48,000,000 \text{ Hz}} = 20.83  \text{ ns}$
 
 The frequency of the pin toggle operation is approximately 226 kHz. Which lays within the measurement range of the FNIRSI oscilloscope and well below the limits of the OWON model.
 
-$\frac{1 \text{ sec}}{226,000 \text{ Hz}} = 4425  \text{ ns}$
+$\frac{1 \text{ sec}}{226,000 \text{ Hz}} = 4,425  \text{ ns}$
 
 ![UNO R4 Oscilloscopes](https://github.com/inn-goose/arduino-performance/blob/main/images/UNO%20R4%20Oscilloscopes.jpeg?raw=true)
 
@@ -145,13 +145,13 @@ A very fast platform with extensive wireless capabilities but few pins. My measu
 
 | CPU Clock | Cycle Length | Operation Length | Cycles per Operation |
 | :--: | :--: | :--: | :--: |
-| 240 MHz | 4.2 ns | 1376 ns | 328 |
+| 240 MHz | 4.2 ns | 1,376 ns | 328 |
 
 $\frac{1 \text{ sec}}{240,000,000 \text{ Hz}} = 4.16  \text{ ns}$
 
 The frequency of the pin toggle operation is approximately 726 kHz. Which exceeds the FNIRSI measurement limit by nearly four times, but still well below the limits of the OWON model.
 
-$\frac{1 \text{ sec}}{726,000 \text{ Hz}} = 1377  \text{ ns}$
+$\frac{1 \text{ sec}}{726,000 \text{ Hz}} = 1,377  \text{ ns}$
 
 ![NANO ESP32 Oscilloscopes](https://github.com/inn-goose/arduino-performance/blob/main/images/NANO%20ESP32%20Oscilloscopes.jpeg?raw=true)
 
