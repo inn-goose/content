@@ -81,7 +81,7 @@ The frequency of a "slow" pin toggle operation is approximately 65 kHz.
 
 $\frac{1 \text{ sec}}{65,000 \text{ Hz}} = 15,384  \text{ ns}$
 
-The measurement is performed with two oscilloscopes simultaneously to compare results.
+The speed and frequency of the pin toggle operation are measured. CPU frequency was measured only for the UNO R3, other platforms operate at frequencies beyond the measurement capabilities of my oscilloscopes. The measurement is performed with two oscilloscopes simultaneously to compare results.
 
 ![UNO R3 Slow Pin Oscilloscopes](https://github.com/inn-goose/arduino-performance/blob/main/images/UNO%20R3%20Slow%20Pin%20Oscilloscopes.jpeg?raw=true)
 
