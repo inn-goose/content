@@ -197,8 +197,8 @@ The ratio between the execution time of the pin toggle operation and the CPU clo
 | -- | :--: | :--: | :--: | :--: |
 | Arduino UNO R3 | 16 | 100 | 10,600 | 170 |
 | Arduino UNO R4 | 48 | 226 | 4,420 | 213 |
-| Arduino NANO ESP32 | 726 | 240 | 1,376 | 328 |
-| Arduino GIGA R3 | 2,150 | 480 | 466 | 222 |
+| Arduino NANO ESP32 | 240 | 726 | 1,376 | 328 |
+| Arduino GIGA R3 | 480 | 2,150 | 466 | 222 |
 
 The most cycles are required on the ESP32 platform, and the fewest on the ATmega328P. However the CPU clock directly affects the operation speed despite instruction overhead: the higher the processor speed, the faster the commands execute.
 
