@@ -6,12 +6,14 @@ When I was working on improving the performance of my [EEPROM API](https://githu
 
 So I decided to measure the performance of different Arduino microcontroller models using an oscilloscope. I'm trying to determine the minimum execution time of a simple digital pin toggle operation. And try to estimate the number of CPU instructions based on the clock speed and the operation’s execution time.
 
-The source code is located in the [sketch.ino](sketch/sketch.ino) file.
+The source code: [sketch.ino](sketch/sketch.ino)
 
 
 ## Oscilloscopes
 
 ### [FNIRSI DSO152](https://www.fnirsi.com/products/dso-152?variant=46705204134106)
+
+![FNIRSI DSO152](https://github.com/inn-goose/arduino-performance/blob/main/images/FNIRSI%20DSO152.jpeg?raw=true)
 
 | Bandwidth | Sampling Rate | Min Time Div |
 | -- | :-: | :-: |
@@ -22,6 +24,8 @@ A small single-channel oscilloscope that introduced me to the world of waveforms
 Its bandwidth is sufficient to measure the fastest operations on the UNO R3. Beyond that, limitations start to appear.
 
 ### [OWON HDS242](https://files.owon.com.cn/specifications/HDS200.pdf)
+
+![OWON HDS242](https://github.com/inn-goose/arduino-performance/blob/main/images/OWON%20HDS242.jpeg?raw=true)
 
 | Bandwidth | Sampling Rate | Min Time Div |
 | -- | :-: | :-: |
