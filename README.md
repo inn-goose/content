@@ -75,7 +75,7 @@ The fastest execution time of the `Pin Toggle` operation on the UNO R3 is approx
 
 ### "Slow" `5` Pin
 
-An unknown platform feature that divides pins into "fast" and "slow". My measurements show a 1.5x regression in frequency between the "fast" `12` pin and the "slow" `5` pin.
+An interesting platform feature that divides pins into "fast" and "slow". My measurements show a 1.5x regression in frequency between the "fast" `12` pin and the "slow" `5` pin.
 
 The frequency of a "slow" pin toggle operation is approximately 65 kHz.
 
