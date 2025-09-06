@@ -115,7 +115,7 @@ $\frac{1 \text{ sec}}{100,000 \text{ Hz}} = 10,000  \text{ ns}$
 UNO R4 replaces the classic UNO with an ATmega328P, increasing the CPU clock speed, as well as the basic pin toggle operation speed. This can be useful when the microcontroller is used for data processing or data transmission. Measurements show an almost linear correlation between the CPU speed and the operation length. Both oscilloscopes handle pin toggle operation timing surprisingly well, even considering hardware limitations.
 
 | CPU Clock | Cycle Length | Operation Length | Cycles per Operation |
-| -- | :--: | :--: | :--: |
+| :--: | :--: | :--: | :--: |
 | 48 MHz | 20.8 ns | 4420 ns | 213 |
 
 $\frac{1 \text{ sec}}{48,000,000 \text{ Hz}} = 20.83  \text{ ns}$
@@ -144,7 +144,7 @@ Connecting to pins `5` and `12` yields the same frequency value, suggesting that
 A very fast platform with extensive wireless capabilities but few pins. My measurements show the largest CPU-cycle overhead per pin toggle. I would attribute this to the processor architecture and the compiler internals.
 
 | CPU Clock | Cycle Length | Operation Length | Cycles per Operation |
-| -- | :--: | :--: | :--: |
+| :--: | :--: | :--: | :--: |
 | 240 MHz | 4.2 ns | 1376 ns | 328 |
 
 $\frac{1 \text{ sec}}{240,000,000 \text{ Hz}} = 4.16  \text{ ns}$
@@ -169,7 +169,7 @@ $\frac{1 \text{ sec}}{726,000 \text{ Hz}} = 1377  \text{ ns}$
 The fastest platform, which also allows connecting many pins and performing logic analysis of complex circuits. Only the OWON oscilloscope was capable of measuring the pin toggle operation time. CPU clock measurements are beyond the capabilities of both instruments.
 
 | CPU Clock | Cycle Length | Operation Length | Cycles per Operation |
-| -- | :--: | :--: | :--: |
+| :--: | :--: | :--: | :--: |
 | 480 MHz | 2.1 ns | 466 ns | 222 |
 
 $\frac{1 \text{ sec}}{480,000,000 \text{ Hz}} = 2.08  \text{ ns}$
