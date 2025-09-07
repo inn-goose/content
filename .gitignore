@@ -1,5 +1,5 @@
 # mac specifics
 .DS_Store
 
-# images
-images/RAW
+# RAW images
+RAW/
