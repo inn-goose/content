@@ -1,4 +1,4 @@
-# Arduino Performance Measurement with Oscilloscope
+# Arduino Performance Measurements with Oscilloscope
 
 ## TLDR
 

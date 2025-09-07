@@ -1,7 +1,7 @@
 # Oscilloscope Experiments
 
 ## TOC
-* [Arduino Performance Measurement with Oscilloscope](arduino-performance/)
+* [Arduino Performance Measurements with Oscilloscope](arduino-performance/)
 
 
 ## Oscilloscopes
