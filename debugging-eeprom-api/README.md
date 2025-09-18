@@ -249,8 +249,3 @@ diff ./data/reference.out ./data/eeprom_api_fixed.out
 ```
 
 Now I can move forward and publish the first version of the library, verified against the reference and producing stable read results. Next, I will focus on write operations and the CLI interface, taking into account the limitations of the serial bus.
-
-
-## Notes
-
-replace ' to '
