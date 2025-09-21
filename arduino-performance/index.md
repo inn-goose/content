@@ -1,4 +1,7 @@
-# Arduino Performance Measurements with Oscilloscope
+---
+draft: true
+title: 'Arduino Performance Measurements with Oscilloscope'
+---
 
 ## TLDR
 
@@ -11,13 +14,13 @@ The source code: [sketch.ino](sketch/sketch.ino)
 
 ## CPU Clock Measurement
 
-Connecting to `XTAL2` (pin `10`, [pinout](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/ATmega328P%20Pinout.png?raw=true)) provides the CPU clock signal, as described in the [ATmega328P Datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf) and visible on the oscilloscope screen as a stable sine wave as well.
+Connecting to `XTAL2` (pin `10`, [pinout](images/ATmega328P%20Pinout.png)) provides the CPU clock signal, as described in the [ATmega328P Datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf) and visible on the oscilloscope screen as a stable sine wave as well.
 
-![UNO R3 Clock](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R3%20Clock.jpeg?raw=true)
+![UNO R3 Clock](images/UNO%20R3%20Clock.jpeg)
 
 The UNO R3 CPU frequency (16 MHz) and the OWON oscilloscope bandwidth (40 MHz) allow observing and measuring the cycle duration and board's crystal oscillator frequency with reasonable accuracy. The voltage measurement (600 mV) cannot be fully trusted, as it approaches the instrument’s measurement limit.
 
-![UNO R3 Clock OWON HDS242](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R3%20Clock%20OWON%20HDS242.jpeg?raw=true)
+![UNO R3 Clock OWON HDS242](images/UNO%20R3%20Clock%20OWON%20HDS242.jpeg)
 
 
 ## `Pin Toggle` Operation Measurement
@@ -26,11 +29,11 @@ I defined the simplest operation measurable by the oscilloscope as a unit. The o
 
 (*) it can be observed that the transition from 0 to 1 takes slightly longer, with a delta within a few percent. I assume this is due to boilerplate around the `loop()` function, as the `Pin Toggle` operation also includes all the routine code hidden outside the `loop()` callback.
 
-![UNO R3 Pin Toggle Operation](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R3%20Operation.jpeg?raw=true)
+![UNO R3 Pin Toggle Operation](images/UNO%20R3%20Operation.jpeg)
 
 The fastest execution time of the `Pin Toggle` operation on the UNO R3 is approximately 10.6 µs, or 100 kHz. As my measurements below show, one operation cycle (blue) corresponds to roughly 170 CPU cycles (yellow).
 
-![UNO R3 Pin Toggle Operation OWON HDS242](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R3%20Operation%20OWON%20HDS242.jpeg?raw=true)
+![UNO R3 Pin Toggle Operation OWON HDS242](images/UNO%20R3%20Operation%20OWON%20HDS242.jpeg)
 
 
 ## UNO R3
@@ -57,29 +60,29 @@ $\frac{1 \text{ sec}}{10,600 \text{ ns}} = 94 \text{ kHz}$
 
 The frequency of the "fast" pin toggle operation is approximately 94 kHz.
 
-![UNO R3 Fast Pin Oscilloscopes](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R3%20Fast%20Pin%20Oscilloscopes.jpeg?raw=true)
+![UNO R3 Fast Pin Oscilloscopes](images/UNO%20R3%20Fast%20Pin%20Oscilloscopes.jpeg)
 
 **FNIRSI DSO152**: The operation frequency approaches the oscilloscope’s measurement limit, but the square wave is still clearly distinguishable, as is the voltage level.
 
-![UNO R3 Fast Pin FNIRSI DSO152](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R3%20Fast%20Pin%20FNIRSI%20DSO152.jpeg?raw=true)
+![UNO R3 Fast Pin FNIRSI DSO152](images/UNO%20R3%20Fast%20Pin%20FNIRSI%20DSO152.jpeg)
 
 **OWON HDS242**: A clear square waveform. This instrument is designed for such frequencies.
 
-![UNO R3 Fast Pin OWON HDS242](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R3%20Fast%20Pin%20OWON%20HDS242.jpeg?raw=true)
+![UNO R3 Fast Pin OWON HDS242](images/UNO%20R3%20Fast%20Pin%20OWON%20HDS242.jpeg)
 
 ### "Slow" `5` Pin
 
 The frequency of a "slow" pin toggle operation is approximately 65 kHz.
 
-![UNO R3 Slow Pin Oscilloscopes](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R3%20Slow%20Pin%20Oscilloscopes.jpeg?raw=true)
+![UNO R3 Slow Pin Oscilloscopes](images/UNO%20R3%20Slow%20Pin%20Oscilloscopes.jpeg)
 
 **FNIRSI DSO152**: same as the "fast" pin measurement
 
-![UNO R3 Slow Pin FNIRSI DSO152](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R3%20Slow%20Pin%20FNIRSI%20DSO152.jpeg?raw=true)
+![UNO R3 Slow Pin FNIRSI DSO152](images/UNO%20R3%20Slow%20Pin%20FNIRSI%20DSO152.jpeg)
 
 **OWON HDS242**: same as the "fast" pin measurement
 
-![UNO R3 Slow Pin OWON HDS242](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R3%20Slow%20Pin%20OWON%20HDS242.jpeg?raw=true)
+![UNO R3 Slow Pin OWON HDS242](images/UNO%20R3%20Slow%20Pin%20OWON%20HDS242.jpeg)
 
 
 ## UNO R4
@@ -92,19 +95,19 @@ UNO R4 replaces the classic UNO with an ATmega328P, increasing the CPU clock spe
 
 The frequency of the pin toggle operation is approximately 226 kHz. Which lays within the measurement range of the FNIRSI oscilloscope and well below the limits of the OWON model.
 
-![UNO R4 Oscilloscopes](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R4%20Oscilloscopes.jpeg?raw=true)
+![UNO R4 Oscilloscopes](images/UNO%20R4%20Oscilloscopes.jpeg)
 
 Connecting to pins `5` and `12` yields the same frequency value, suggesting that the distinction between "fast" and "slow" pins is specific to the UNO R3.
 
-![UNO R4 Oscilloscopes 2](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R4%20Oscilloscopes%202.jpeg?raw=true)
+![UNO R4 Oscilloscopes 2](images/UNO%20R4%20Oscilloscopes%202.jpeg)
 
 **FNIRSI DSO152**: The CPU clock speed is far beyond the measurement capabilities of the oscilloscope, so the instrument cannot display a clear square waveform. But it can estimate the cycle duration and fairly accurately show the voltage value vertically.
 
-![UNO R4 FNIRSI DSO152](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R4%20FNIRSI%20DSO152.jpeg?raw=true)
+![UNO R4 FNIRSI DSO152](images/UNO%20R4%20FNIRSI%20DSO152.jpeg)
 
 **OWON HDS242**: The oscilloscope’s bandwidth allows measuring operations at these speeds without issues, producing a clear waveform. The 40 MHz bandwidth theoretically allows measuring the CPU clock, if measure the right pin of RA4M1 CPU.
 
-![UNO R4 OWON HDS242](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/UNO%20R4%20OWON%20HDS242.jpeg?raw=true)
+![UNO R4 OWON HDS242](images/UNO%20R4%20OWON%20HDS242.jpeg)
 
 
 ## NANO ESP32
@@ -117,15 +120,15 @@ A very fast platform with extensive wireless capabilities but few pins. My measu
 
 The frequency of the pin toggle operation is approximately 726 kHz. Which exceeds the FNIRSI measurement limit by nearly four times, but still well below the limits of the OWON model.
 
-![NANO ESP32 Oscilloscopes](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/NANO%20ESP32%20Oscilloscopes.jpeg?raw=true)
+![NANO ESP32 Oscilloscopes](images/NANO%20ESP32%20Oscilloscopes.jpeg)
 
 **FNIRSI DSO152**: Measuring the exact operation time is beyond the capabilities of the oscilloscope’s horizontal scale. However, a careful count of the pulses shows 6 operations per horizontal division, which roughly corresponds to the measurements of the higher-grade instrument.
 
-![NANO ESP32 FNIRSI DSO152](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/NANO%20ESP32%20FNIRSI%20DSO152.jpeg?raw=true)
+![NANO ESP32 FNIRSI DSO152](images/NANO%20ESP32%20FNIRSI%20DSO152.jpeg)
 
 **OWON HDS242**: Measuring the CPU frequency is not possible, as it exceeds the capabilities of the current oscilloscope. However, measuring the time of a single operation produces a very clear waveform without bounce. The NANO ESP32 operates at 3.3V, which is clearly visible on the screen. The instrument is well suited for measurements at these speeds.
 
-![NANO ESP32 OWON HDS242](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/NANO%20ESP32%20OWON%20HDS242.jpeg?raw=true)
+![NANO ESP32 OWON HDS242](images/NANO%20ESP32%20OWON%20HDS242.jpeg)
 
 
 ## GIGA R1
@@ -138,15 +141,15 @@ The fastest platform, which also allows connecting many pins and performing logi
 
 The frequency of the pin toggle operation is approximately 2.15 MHz. Making the FNIRSI oscilloscope unusable and creating some challenges for the OWON model.
 
-![GIGA R1 Oscilloscopes](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/GIGA%20R1%20Oscilloscopes.jpeg?raw=true)
+![GIGA R1 Oscilloscopes](images/GIGA%20R1%20Oscilloscopes.jpeg)
 
 **FNIRSI DSO152**: Measuring the exact operation time is beyond the capabilities of the oscilloscope’s horizontal scale. An approximate count gives 3 operations per 10 µs scale, which differs from the actual value by a factor of 7.
 
-![GIGA R1 FNIRSI DSO152](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/GIGA%20R1%20FNIRSI%20DSO152.jpeg?raw=true)
+![GIGA R1 FNIRSI DSO152](images/GIGA%20R1%20FNIRSI%20DSO152.jpeg)
 
 **OWON HDS242**: Measuring the execution time of a single operation approaches the limit of the horizontal display, but shows the reasonable waveform. The voltage difference is less than 5 volts due to signal bounce.
 
-![GIGA R1 OWON HDS242](https://github.com/inn-goose/oscilloscope-experiments/blob/main/arduino-performance/images/GIGA%20R1%20OWON%20HDS242.jpeg?raw=true)
+![GIGA R1 OWON HDS242](images/GIGA%20R1%20OWON%20HDS242.jpeg)
 
 
 ## Conclusion

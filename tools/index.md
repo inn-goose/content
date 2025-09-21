@@ -1,14 +1,13 @@
-# Oscilloscope Experiments
-
-## TOC
-* [Arduino Performance Measurements with Oscilloscope](arduino-performance/)
-
+---
+draft: true
+title: 'Tools'
+---
 
 ## Oscilloscopes
 
 ### FNIRSI DSO152
 
-![FNIRSI DSO152](https://github.com/inn-goose/oscilloscope-experiments/blob/main/images/FNIRSI%20DSO152.jpeg?raw=true)
+![FNIRSI DSO152](images/FNIRSI%20DSO152.jpeg)
 
 | Bandwidth | Sampling Rate | Min Time Div |
 | :--: | :-: | :-: |
@@ -22,7 +21,7 @@ Its bandwidth is sufficient to measure the fastest operations on the UNO R3. Bey
 
 ### OWON HDS242
 
-![OWON HDS242](https://github.com/inn-goose/oscilloscope-experiments/blob/main/images/OWON%20HDS242.jpeg?raw=true)
+![OWON HDS242](images/OWON%20HDS242.jpeg)
 
 | Bandwidth | Sampling Rate | Min Time Div |
 | :--: | :-: | :-: |
