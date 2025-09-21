@@ -1,5 +1,4 @@
 ---
-draft: true
 title: 'Debugging the EEPROM API'
 ---
 

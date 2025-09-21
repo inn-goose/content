@@ -1,5 +1,4 @@
 ---
-draft: true
 title: 'Arduino Performance Measurements with Oscilloscope'
 ---
 
