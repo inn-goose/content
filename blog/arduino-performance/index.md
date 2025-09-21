@@ -1,5 +1,10 @@
 ---
-title: 'Arduino Performance Measurements with Oscilloscope'
+draft: false
+date: 2025-09-06
+###
+title: Arduino Performance Measurements with Oscilloscope
+linkTitle: arduino-performance
+###
 ---
 
 ## TLDR

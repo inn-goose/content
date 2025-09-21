@@ -1,5 +1,10 @@
 ---
-title: 'Debugging the EEPROM API'
+draft: false
+date: 2025-09-18
+###
+title: Debugging the EEPROM API
+linkTitle: debugging-eeprom-api
+###
 ---
 
 **EEPROM API** is my project for reading and writing the 28C64 EEPROM, while also helping me learn:

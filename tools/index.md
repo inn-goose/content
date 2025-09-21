@@ -1,5 +1,10 @@
 ---
-title: 'Tools'
+draft: true
+date: 2025-09-06
+###
+title: Tools
+linkTitle: tools
+###
 ---
 
 ## Oscilloscopes
