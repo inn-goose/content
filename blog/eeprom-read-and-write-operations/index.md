@@ -3,7 +3,6 @@ draft: false
 date: 2025-08-27
 ###
 title: EEPROM Read and Write Operations with Arduino
-linkTitle: eeprom-read-and-write-operations
 ###
 # published: true
 # description: Explored EEPROM 28C64 basics using Arduino. Built a simple API to hide low-level pin control. Verified read/write operations, though some datasheet waveforms don’t match practice. Used breadboard, button, and LCD for control and display. Performance, timing accuracy, and data retention issues remain for future study.

@@ -3,7 +3,6 @@ draft: false
 date: 2025-08-30
 ###
 title: EEPROM API Performance with Arduino
-linkTitle: eeprom-api-performance
 ###
 # published: true
 # description: Read and write operations are dominated by Arduino execution overhead, roughly 120 ns per digital pin operation. Active polling of the EEPROM `READY/BUSY` pin significantly reduces write times, cutting wait from 1400 µs to 600 µs without errors. Sequential write/read tests confirm reliable data transfer, while excessive speed risks corrupting writes. Future work includes testing chip endurance, data retention, and performance across different Arduino clock speeds.

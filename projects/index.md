@@ -1,8 +1,8 @@
 ---
 draft: false
-date: 2025-08-27
+date: 2025-09-22
 ###
-title: About
+title: Projects
 ###
 ---
 

@@ -3,7 +3,6 @@ draft: false
 date: 2025-09-18
 ###
 title: Debugging the EEPROM API
-linkTitle: debugging-eeprom-api
 ###
 ---
 
