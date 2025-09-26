@@ -36,7 +36,7 @@ Key points I can read from the [28C64 Datasheet](https://ww1.microchip.com/downl
 
 At this initial stage I am not concerned with tolerances, error handling, or performance characteristics, I just wanted to validate the basic functions of the chip.
 
-![EEPROM 28C64 Pins Layout](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/adnogiscdhmtyco5602f.png)
+![EEPROM 28C64 Pins Layout](images/eeprom-28c64-pins-layout.png)
 
 
 ## EEPROM API for Arduino
@@ -81,9 +81,9 @@ The button controls the program’s execution loop, switching between read and w
 
 I use a I2C 2004 LCD screen to display the status of the current operation, the address, and the data. Using this screen is not strictly necessary, but I found it convenient to have both control (the button) and display (the LCD) in one place, without relying on the Arduino console.
 
-![EEPROM 28C64 wiring with Arduino](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/msv0wb0tbhcdi8l9wzm7.jpg)
+![EEPROM 28C64 wiring with Arduino](images/eeprom-28c64-wiring-with-arduino.JPG)
 
-![EEPROM 28C64 on Breadboard](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gulsf3b1bhp0av412oma.jpg)
+![EEPROM 28C64 on Breadboard](images/eeprom-28c64-on-breadboard.JPG)
 
 
 ## Bits to Bytes Conversion Logic
@@ -103,9 +103,9 @@ The sequence for executing a read operation follows the waveforms:
 2. Set the control pins such as `–CE`, `–OE`, and `+WE` (not shown in the diagram)
 3. Read the `data`
 
-![EEPROM 28C64 Read Waveforms](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5q9rp4qqqc8r3tnu6hp5.png)
+![EEPROM 28C64 Read Waveforms](images/eeprom-28c64-read-waveforms.png)
 
-![EEPROM 28C64 Read operation with Arduino](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1npzof7jin1quhxtwunr.jpg)
+![EEPROM 28C64 Read operation with Arduino](images/eeprom-28c64-read-operation-with-arduino.JPG)
 
 
 ## Write Operation and Sequence
@@ -122,9 +122,9 @@ Thus, in my case the working sequence is:
 3. Send a `LOW` signal to the control pins as `–CE` and `–WE`
 4. Wait 1 millisecond
 
-![EEPROM 28C64 Write Waveforms](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/thxi0expikx5l1r4p7lm.png)
+![EEPROM 28C64 Write Waveforms](images/eeprom-28c64-write-waveforms.png)
 
-![EEPROM 28C64 Write operation with Arduino](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/92kxrdx34cq223osyq7y.jpg)
+![EEPROM 28C64 Write operation with Arduino](images/eeprom-28c64-write-operation-with-arduino.jpeg)
 
 
 ## Summary / Next Steps

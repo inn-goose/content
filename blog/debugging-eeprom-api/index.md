@@ -17,7 +17,7 @@ Here are a couple of introductory articles ([EEPROM Read and Write Operations wi
 
 ### TLDR
 
-![Measuring EEPROM API for Arduino with an Oscilloscope](images/measuring_with_oscilloscope.jpeg)
+![Measure EEPROM API for Arduino with an Oscilloscope](images/measure-with-oscilloscope.jpeg)
 
 The goal was to verify that data read by the EEPROM API matched the output from a hardware programmer. Initial results showed corrupted and inconsistent data. I tested multiple hypotheses: experimenting with bit ordering, checking address and data pins with a logic probe and oscilloscope, replacing ribbon cables with jumper wires, and isolating the address and data buses. These experiments suggested noise on the data pins, while address pins appeared stable.
 
@@ -138,21 +138,21 @@ The software part seems correct, but the chip is mixing up data for different ad
 
 I decided to determine whether the program sets the addresses for reading memory cells correctly. To do this I used a logic probe and checked each pin of the chip. The check showed two pins with no visible signal, as if they were not connected. Assuming the logic probe has limited sensitivity I verified the configuration with an oscilloscope.
 
-![measuring_with_logic_probe](images/measuring_with_logic_probe.jpeg)
+![Measure EEPROM API for Arduino with a Logic Probe](images/measure-with-logic-probe.jpeg)
 
 I use a delay inside the data reading function to pause the program, which allows me to measure the signals on all pins.
 ```cpp
   if (address == 3967) delay(1000000);
 ```
 
-![measuring_with_oscilloscope_noise_ribbon](images/measuring_with_oscilloscope_noise_ribbon.jpeg)
+![Measure EEPROM API for Arduino with an Oscilloscope. Ribbon Cable Noise](images/measure-with-oscilloscope-noise-ribbon.jpeg)
 
 I enabled debug output in the API to display the digital states of the address and data pins, where `0` corresponds to *0V* and `1` corresponds to *5V*. Address `b0000000111110` returns the value `b11000110` or the ASCII letter `c`. The oscilloscope readings for the address and data pins match the log output, showing the expected bit pattern. This confirms the value is correct.
 ```
 (API) READ [3967] | addr[LSb]: b1111111011110 | data[LSb]: b11000110
 ```
 
-![oscilloscope_data_pin_0_noise](images/oscilloscope_data_pin_0_noise.jpeg)
+![Oscilloscope: Data Pin Logical 0 Noise](images/oscilloscope-data-pin-0-noise.jpeg)
 
 Address `b0000000111110` should contain the ASCII letter `e`. The oscilloscope capture shows the expected *LSb* value `10100110` on the chip's pins, but the zero levels are noisy, with spikes reaching up to *5V*. The program reads an incorrect value of `b11111111` due to the noise, which is visible in the debug log. The noise caused misreadings, leading the microcontroller to interpret a noisy zero as one. We observe this behavior: all data pins are read as ones instead of the actual mix of zeroes and ones.
 ```
@@ -166,18 +166,18 @@ I detected noise on the data pins, while the address pins remained stable. My ne
 
 I suspect that the ribbon cable may introduce electromagnetic noise, or that the Dupont connectors themselves add noise, since management, address, and data pins are mixed at the connection points. Previously, using regular jumper wires, this behavior was not observed. I replaced the ribbon cable with jumper wires and repeated the experiment.
 
-![wiring_jumper_wires](images/wiring_jumper_wires.jpeg)
+![Connect EEPROM with Jumper Wires](images/connect-with-jumper-wires.jpeg)
 
 Replacing the ribbon cable with regular jumper wires did not help; the noise remained. The oscilloscope records the same amount of noise on the `I/O4` pin. 
 
-![measuring_with_oscilloscope_noise_jumpers](images/measuring_with_oscilloscope_noise_jumpers.jpeg)
+![Measure EEPROM API for Arduino with an Oscilloscope. Jumper Wires Noise](images/measure-with-oscilloscope-noise-jumpers.jpeg)
 
 The program continues to return the same corrupted data with the new wiring as before. It reads `b11111111` instead of `10100110`.
 ```
 (API) R [3968] | addr[LSb]: b0000000111110 | data[LSb]: b11111111
 ```
 
-![oscilloscope_data_pin_1_noise](images/oscilloscope_data_pin_1_noise.jpeg)
+![Oscilloscope: Data Pin Logical 1 Noise](images/oscilloscope-data-pin-1-noise.jpeg)
 
 Additionally, I observed that the noise for a logical `1` appears as a drop to `0`. Consequently, values can sometimes be misread, with a `1` interpreted as `0`. This is clearly visible in the initial experiment, where letters in words appear scrambled.
 
@@ -192,12 +192,12 @@ My next assumption is that the crossing of address bus wires and data bus wires 
 
 This produced a result. The address that previously showed noise on the address pins displayed clean values for both logical 0 and 1. The serial console showed the same value consistently, indicating that the data is read reliably and no noise is introduced.
 
-![address_pins_connection_to_rails](images/address_pins_connection_to_rails.jpeg)
+![Address Pin Connected to a Breadboard Rails](images/address-pins-connection-to-rails.jpeg)
 
 After connecting the three most significant bits of the address space to the Arduino, setting them to the values that previously caused noise, I checked whether interference appeared on the address bus. No interference appeared on the data bus. The Arduino consistently read the same value, and oscilloscope verification showed a stable, noise-free signal.
 
-![oscilloscope_data_pin_0_ok](images/oscilloscope_data_pin_0_ok.jpeg)
-![oscilloscope_data_pin_1_ok](images/oscilloscope_data_pin_1_ok.jpeg)
+![Oscilloscope: Data Pin Logical 0 Ok](images/oscilloscope-data-pin-0-ok.jpeg)
+![Oscilloscope: Data Pin Logical 1 Ok](images/oscilloscope-data-pin-1-ok.jpeg)
 
 I decided to carefully check the signal on each chip pin during a full read cycle, hoping to spot an anomaly I had missed before. To do this, I reconnected the chip to the Arduino.
 
@@ -206,15 +206,15 @@ I decided to carefully check the signal on each chip pin during a full read cycl
 
 I checked each pin of the chip with the oscilloscope during the read operation, starting with the left side while the right side was disconnected, to rule out interference, as I suspected some pins on the right might be causing it. But this gave no visible results; the signal looked as expected, with clear zeros and ones.
 
-![checking_every_channel_left](images/checking_every_channel_left.jpeg)
+![Check Every Data Channel Left Part](images/check-every-channel-left.jpeg)
 
 After that, I connected the right side and detected an anomaly. The signal on the address pins looked incorrect: instead of digital square waves, the oscilloscope displayed a sawtooth pattern. Moreover, after the read operation finished, instead of a steady *0V*, the oscilloscope showed a noisy trace resembling interference rather than a true logical zero. At the same time, this behavior appeared only on the address pins. The control pins looked normal, and the oscilloscope showed a proper digital signal on them.
 
-![checking_every_channel_right_detected](images/checking_every_channel_right_detected.jpeg)
+![Check Every Data Channel Right Part Issue Detected](images/check-every-channel-right-detected.jpeg)
 
 This stark difference in behavior led me to suspect that these pins might be unconnected or improperly configured for digital signals. I checked the code and realized that I had incorrectly initialized the address pins, using the data bus size constant instead of the address bus size, leaving the top five address pins uninitialized.
 
-![checking_every_channel_right_fixed](images/checking_every_channel_right_fixed.jpeg)
+![Check Every Data Channel Right Part Issue Fixed](images/check-every-channel-right-fixed.jpeg)
 
 Correct initialization of the upper address pins solved the problem. The sawtooth trace turned into a proper digital trace, and the random oscillations around *0V* disappeared. In the end, it turned out that incorrectly initialized digital pins can introduce unwanted interference and cause unstable chip behavior. This was difficult to trace, because the sawtooth trace was still generated despite the uninitialized Arduino output pins, and occasional correct operation made the issue misleading.
 
@@ -223,19 +223,19 @@ Correct initialization of the upper address pins solved the problem. The sawtoot
 
 A proper digital zero on the oscilloscope appears as a straight horizontal line.
 
-![oscilloscope_address_pin_connected_idle](images/oscilloscope_address_pin_connected_idle.jpeg)
+![Oscilloscope: Address Pin Connected. Idle State](images/oscilloscope-address-pin-connected-idle.jpeg)
 
 An unconnected pin, by contrast, shows random oscillations above and below *0V*.
 
-![oscilloscope_address_pin_not_connected_idle](images/oscilloscope_address_pin_not_connected_idle.jpeg)
+![Oscilloscope: Address Pin Not Connected. Idle State](images/oscilloscope-address-pin-not-connected-idle.jpeg)
 
 A good digital signal trace shows clean *0V*-*5V* columns of ones with proper intervals.
 
-![oscilloscope_address_pin_connected_data](images/oscilloscope_address_pin_connected_data.jpeg)
+![Oscilloscope: Address Pin Connected. Data](images/oscilloscope-address-pin-connected-data.jpeg)
 
 A bad oscilloscope trace appears as an unclear sawtooth, with values not dropping to *0V* and staying near *5V*, with small dips to *4V*.
 
-![oscilloscope_address_pin_not_connected_data](images/oscilloscope_address_pin_not_connected_data.jpeg)
+![Oscilloscope: Address Pin Not Connected. Data](images/oscilloscope-address-pin-not-connected-data.jpeg)
 
 
 ## Summary and What I Learned

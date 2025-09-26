@@ -20,12 +20,12 @@ Now I would like to focus on improving performance and, moreover, comparing the 
 
 To achieve this, I will strictly follow the exact pin activation sequence described in the datasheet's waveforms and also respect the timing requirements for operations, such as the Write Cycle Time. I will eliminate unnecessary waiting functions and, in addition, use an oscilloscope to illustrate how the write waveforms actually look in practice.
 
-![Wiring for EEPROM and Oscilloscope](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8q4j934g1svood44cuu6.jpg)
+![Wiring for EEPROM and Oscilloscope](images/wiring-for-eeprom-and-oscilloscope.jpg)
 
 
 ## Read Waveforms
 
-![EEPROM 28C64 Read Waveforms](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5q9rp4qqqc8r3tnu6hp5.png)
+![EEPROM 28C64 Read Waveforms](images/eeprom-28c64-read-waveforms.png)
 
 The sequence of pin activations required for reading data from the EEPROM is, in fact, fairly straightforward.
 
@@ -40,7 +40,7 @@ Read Operation Steps:
 
 Step 4* is, interestingly, the one to watch, because Arduino platform specifics start to show. The EEPROM Datasheet states that the time between setting the `OE` pin `LOW` and the value appearing on the Data Bus is between 10 and 70 ns for my EEPROM model.
 
-![Oscilloscope: Pin Write Delta](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/t4mzu8qxm4vn8uuhzumx.jpeg)
+![Oscilloscope: Pin Write Delta](images/oscilloscope-pin-write-delta.jpeg)
 
 However, as the oscilloscope measurements indicate, the time between two pin write operations is about 120 ns. I can, reasonably, assume this is execution overhead, since the program is written in C and each function expands into a large set of low-level instructions. This delta between operations is sufficient for the value to appear on the Data Bus.
 
@@ -49,7 +49,7 @@ The Arduino Giga clock is 240 MHz, which is 20 times higher than the Mega’s 16
 
 ## Write Waveforms
 
-![EEPROM 28C64 Write Waveforms](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/thxi0expikx5l1r4p7lm.png)
+![EEPROM 28C64 Write Waveforms](images/eeprom-28c64-write-waveforms.png)
 
 The operations required for writing data are slightly more complex and require additional polling of the `READY/BUSY` pin to determine when the write process has completed.
 
@@ -76,15 +76,15 @@ The `READY/BUSY` status pin uses an **Open Drain Output** connection, so it is n
 
 I will cover the performance details of polling in the next section.
 
-![Oscilloscope: CE and WE waveforms](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l4guag9x8ighozakrfog.jpeg)
+![Oscilloscope: CE and WE waveforms](images/oscilloscope-ce-and-we-waveforms.jpeg)
 
 The relationship between the `CE` (yellow) and `WE` (blue) pins, and their behavior during the write operation, is illustrated in the image above. First, the `CE` pin is pulled `LOW` to activate the chip. Then, the `WE` pin is pulled `LOW`, marking the start of placing a value on the Data Bus. The duration between the falling and rising edges of the `WE` pin is about 1200 ns, which corresponds to roughly 8 write operations at 120 ns each, plus the overhead required to set the value on the bus. The rising edge of `WE` initiates the actual data write process. The rising edge of `CE` no longer affects the operation, as can be seen from the waveforms.
 
-![Oscilloscope: WE to BUSY waveforms](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jvh0zfnyiuwodlqsn62f.jpeg)
+![Oscilloscope: WE to BUSY waveforms](images/oscilloscope-we-to-busy-waveforms.jpeg)
 
 It turned out I misread the waveforms last time. `WE` (blue) does indeed trigger the data-write operation on the rising edge, transferring the chip into the `BUSY` state (yellow). This is confirmed by the oscilloscope measurements shown in the image above.
 
-![Oscilloscope: CE to BUSY waveforms](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qoc3ayx5h72dn5moliwp.jpeg)
+![Oscilloscope: CE to BUSY waveforms](images/oscilloscope-ce-to-busy-waveforms.jpeg)
 
 Setting the chip to inactive mode by driving the `CE` pin `HIGH` does not affect the data write process, as shown in the image above.
 
@@ -95,9 +95,9 @@ Using active polling of the `READY/BUSY` pin allows the write operation to be ac
 
 Oscilloscope measurements show that a write takes about 500 µs, compared to the specified maximum of 1000 µs. However, even waiting manually for the maximum period can occasionally result in write errors. If a new write cycle begins before the previous one has completed, it can corrupt the data from the previous cycle by placing new values on the Data Bus. For reliability, I therefore set the minimum wait time to 1400 µs.
 
-![Oscilloscope: READY delay](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/falgedtzm6dq0lcmzb4j.jpeg)
+![Oscilloscope: READY delay](images/oscilloscope-ready-delay.jpeg)
 
-![Oscilloscope: READY poll](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1krvx8dhv70306bv6r4q.jpeg)
+![Oscilloscope: READY poll](images/oscilloscope-ready-poll.jpeg)
 
 Chip status polling, however, reduces the waiting time from 1400 µs to 600 µs without compromising write reliability. Two oscilloscope waveforms illustrate this difference. In the first image, the program simply waits 1400 µs. In the second image, the program actively polls the chip status and returns control from the write function as soon as the chip enters the `READY` state.
 

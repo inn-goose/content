@@ -10,7 +10,7 @@ title: Tools
 
 ### FNIRSI DSO152
 
-![FNIRSI DSO152](images/FNIRSI%20DSO152.jpeg)
+![FNIRSI DSO152](images/fnirsi-dso152.jpeg)
 
 | Bandwidth | Sampling Rate | Min Time Div |
 | :--: | :-: | :-: |
@@ -24,7 +24,7 @@ Its bandwidth is sufficient to measure the fastest operations on the UNO R3. Bey
 
 ### OWON HDS242
 
-![OWON HDS242](images/OWON%20HDS242.jpeg)
+![OWON HDS242](images/owon-hds242.jpeg)
 
 | Bandwidth | Sampling Rate | Min Time Div |
 | :--: | :-: | :-: |
