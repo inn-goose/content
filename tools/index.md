@@ -5,6 +5,7 @@ title: Tools
 showDate: false
 showWordCount: false
 showReadingTime: false
+showAuthor: false
 ---
 
 ## Oscilloscopes
