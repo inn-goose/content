@@ -1,9 +1,8 @@
 ---
-draft: false
-date: 2025-08-27
 ###
 title: About
 ###
+cover_image: images/goose-in-the-shell.png
 ---
 
 🚧 WIP 🚧
