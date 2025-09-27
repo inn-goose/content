@@ -4,7 +4,7 @@ date: 2025-09-18
 title: Debugging the EEPROM API
 ###
 description: Corrupted EEPROM reads were traced not to wiring noise but to uninitialized Arduino address pins. Correct initialization fixed the issue, and the API now matches hardware programmer output.
-summary: The EEPROM API initially returned corrupted data. I tested wiring, bit ordering, and bus isolation, suspecting noise on the data lines. Oscilloscope traces suggested interference, but the root cause was software: several Arduino address pins were never initialized. These floating pins produced unstable signals that mimicked noise. After proper initialization, the API produced stable results identical to a reference programmer.
+summary: The EEPROM API initially returned corrupted data. I tested wiring, bit ordering, and bus isolation, suspecting noise on the data lines. Oscilloscope traces suggested interference, but the root cause was software, several Arduino address pins were never initialized. These floating pins produced unstable signals that mimicked noise. After proper initialization, the API produced stable results identical to a reference programmer.
 ###
 tags: [arduino, eeprom, debugging, oscilloscope]
 cover_image: images/check-every-channel-right-detected.jpeg

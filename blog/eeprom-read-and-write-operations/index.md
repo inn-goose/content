@@ -3,8 +3,8 @@ date: 2025-08-27
 ###
 title: EEPROM Read and Write Operations with Arduino
 ###
-description: Arduino + 28C64 EEPROM: simple API for byte reads/writes, breadboard with LCD/button, verified basics, noted waveform mismatch and retention quirks.
-summary: Practical walkthrough of 28C64 EEPROM on Arduino Giga: pin mapping, minimal API for reads/writes, breadboard + LCD UI. Verified operation, observed write-edge vs datasheet mismatch, early-address retention issues, and plans for timing and READY/!BUSY testing.
+description: Arduino + 28C64 EEPROM. Simple API for byte reads/writes, breadboard with LCD/button, verified basics, noted waveform mismatch and retention quirks.
+summary: Practical walkthrough of 28C64 EEPROM on Arduino Giga. Pin mapping, minimal API for reads/writes, breadboard + LCD UI. Verified operation, observed write-edge vs datasheet mismatch, early-address retention issues, and plans for timing and READY/!BUSY testing.
 ###
 tags: [arduino, eeprom]
 cover_image: images/eeprom-28c64-wiring-with-arduino.JPG
