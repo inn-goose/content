@@ -7,7 +7,6 @@ description: Corrupted EEPROM reads were traced not to wiring noise but to unini
 summary: The EEPROM API initially returned corrupted data. I tested wiring, bit ordering, and bus isolation, suspecting noise on the data lines. Oscilloscope traces suggested interference, but the root cause was software, several Arduino address pins were never initialized. These floating pins produced unstable signals that mimicked noise. After proper initialization, the API produced stable results identical to a reference programmer.
 ###
 tags: [arduino, eeprom, debugging, oscilloscope]
-cover_image: images/check-every-channel-right-detected.jpeg
 ---
 
 **EEPROM API** is my project for reading and writing the 28C64 EEPROM, while also helping me learn:

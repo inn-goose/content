@@ -2,11 +2,13 @@
 ###
 title: About
 ###
-cover_image: images/goose-in-the-shell.png
+featureimage: images/featured.png
 ###
+showHero: true
 showDate: false
 showWordCount: false
 showReadingTime: false
+showZenMode: false
 showAuthor: false
 ---
 

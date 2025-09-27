@@ -7,7 +7,6 @@ description: Oscilloscope measurements show that Arduino boards execute simple p
 summary: I compared several Arduino platforms by measuring the time for a basic digital pin toggle with an oscilloscope. Each board’s speed scales with its CPU clock, but the instruction overhead differs, some architectures need more cycles per operation, others fewer. Despite these differences, the trend is clear—higher clock speeds produce faster I/O, which directly improves tasks like EEPROM reads.
 ###
 tags: [arduino, eeprom, performance, oscilloscope]
-cover_image: images/uno-r3-operation.jpeg
 ---
 
 ## TLDR

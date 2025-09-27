@@ -7,7 +7,6 @@ description: EEPROM API on Arduino optimized with waveform sequencing and pollin
 summary: Evaluation of EEPROM API performance on Arduino. Overhead from digital I/O measured, and oscilloscope traces confirmed datasheet timing. Active polling of the READY/BUSY pin reduced write latency while maintaining reliability. Sequential write/read verification showed consistent integrity. Future work includes endurance testing, retention studies, and comparing Arduino boards with different clock speeds.
 ###
 tags: [arduino, eeprom, performance, oscilloscope]
-cover_image: images/wiring-for-eeprom-and-oscilloscope.jpg
 ---
 
 ## Motivation
