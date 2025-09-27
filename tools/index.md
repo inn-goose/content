@@ -2,8 +2,6 @@
 ###
 title: Tools
 ###
-featureimage: images/featured.png
-###
 showHero: true
 showDate: false
 showWordCount: false

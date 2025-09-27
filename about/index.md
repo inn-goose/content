@@ -2,8 +2,6 @@
 ###
 title: About
 ###
-featureimage: images/featured.png
-###
 showHero: true
 showDate: false
 showWordCount: false
