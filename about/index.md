@@ -6,7 +6,9 @@ showDate: false
 showWordCount: false
 showReadingTime: false
 showZenMode: false
-showAuthor: false
+###
+showAuthor: true
+showAuthorBottom: false
 ---
 
 🚧 WIP 🚧
