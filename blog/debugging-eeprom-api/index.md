@@ -15,7 +15,7 @@ tags: [arduino, eeprom, debugging, oscilloscope]
 * how to translate waveforms from the datasheet into C++ code
 * how to make this code both efficient and reliable
 
-Here are a couple of introductory articles ([EEPROM Read and Write Operations with Arduino](https://dev.to/inn-goose/eeprom-read-and-write-operations-with-arduino-2ll4), [EEPROM 28C64 API Performance with Arduino](https://dev.to/inn-goose/eeprom-28c64-api-performance-with-arduino-2g20)) on the topic and the project itself on [GitHub](https://github.com/inn-goose/eeprom-api-arduino), still in development.
+Here are a couple of introductory articles ([EEPROM Read and Write Operations with Arduino](https://goose.sh/blog/eeprom-read-and-write-operations/), [EEPROM 28C64 API Performance with Arduino](https://goose.sh/blog/eeprom-api-performance/)) on the topic and the project itself on [GitHub](https://github.com/inn-goose/eeprom-api-arduino), still in development.
 
 
 ### TLDR
