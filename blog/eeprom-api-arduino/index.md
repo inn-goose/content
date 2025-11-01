@@ -1,5 +1,5 @@
 ---
-date: 2025-08-28
+date: 2025-08-27
 ###
 title: EEPROM API for Arduino (GitHub)
 externalUrl: "https://github.com/inn-goose/eeprom-api-arduino"
