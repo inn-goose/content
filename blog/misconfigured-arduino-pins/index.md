@@ -146,15 +146,13 @@ Initialized LOW signal, 10 ms/div 👇
 
 The behavior of uninitialized pins differs significantly between HIGH and LOW states.
 
-When driven HIGH, the signal pattern becomes irregular and the amplitude of fluctuations increases, but it still remains within the 5 V range, with variations up to about 200 mV. External chips would still interpret this as a valid HIGH signal.
-
 Uninitialized HIGH signal, 50 ms/div 👇
 ![Uninitialized / HIGH / Vert 50 ms](images/exp_13.png)
 
 Uninitialized HIGH signal, 10 ms/div 👇
 ![Uninitialized / HIGH / Vert 10 ms](images/exp_14.png)
 
-In the LOW state, the amplitude of fluctuations increases to about 1 V, while the same background noise pattern observed on initialized pins remains. Oscillations between 0 V and 1 V can be interpreted by an external chip as transitions between HIGH and LOW, potentially causing unpredictable behavior.
+When driven HIGH, the signal pattern becomes irregular and the amplitude of fluctuations increases, but it still remains within the 5 V range, with variations up to about 200 mV. External chips would still interpret this as a valid HIGH signal.
 
 Uninitialized LOW signal, 50 ms/div 👇
 ![Uninitialized / LOW / Vert 50 ms](images/exp_17.png)
@@ -162,32 +160,48 @@ Uninitialized LOW signal, 50 ms/div 👇
 Uninitialized LOW signal, 10 ms/div 👇
 ![Uninitialized / LOW / Vert 10 ms](images/exp_18.png)
 
+In the LOW state, the amplitude of fluctuations increases to about 1 V, while the same background noise pattern observed on initialized pins remains. Oscillations between 0 V and 1 V can be interpreted by an external chip as transitions between HIGH and LOW, potentially causing unpredictable behavior.
+
 While the board outputs a stable LOW signal, an external device—such as a DAC—may interpret this noise as a sequence of 0–1 transitions and produce unintended output patterns or audible artifacts.
 
 I analyze the behavior of an uninitialized pin in more detail in one of the following sections, explaining why a board reset can cause data corruption in a connected EEPROM chip.
 
 
-## How to Connect NC Chip Pins
+## How to Initialize NC Chip Pins
 
-🚧 WIP 🚧
+Many integrated circuits include Non-Connected (NC) pins as part of their specification. For example, the AT28Cxx family of EEPROM chips shares the same package form factor across models with different memory sizes. In lower-capacity versions, the higher address bits are unused and are therefore marked as NC.
+
+The same chip family defines different connection modes for different operating states. For example, the `!BSY` pin should remain NC during read operations, but during write operations it outputs a signal indicating the completion of the write cycle. In this case, the connection type for this pin must be controlled programmatically.
+
+As discussed above, leaving such pins uninitialized can cause unpredictable and sometimes destructive behavior. The question is how to properly initialize an NC pin. Community guidance often suggests `INPUT_PULLUP`, I compare it with `OUTPUT` mode driven `LOW` and evaluate the chip’s behavior.
+
+The following example is taken from the codebase of my [EEPROM API]((https://github.com/inn-goose/eeprom-api-arduino)) project.
 
 ```cpp
+// INPUT_PULLUP
+pinMode(_nonConnectedPins[i], INPUT_PULLUP);
+
 // OUTPUT + LOW
 pinMode(_nonConnectedPins[i], OUTPUT);
 digitalWrite(_nonConnectedPins[i], LOW);
-
-// INPUT_PULLUP
-pinMode(_nonConnectedPins[i], INPUT_PULLUP);
 ```
 
 Uninitialized NC Pin 👇
 ![Non Connected / Uninitialized](images/nc_01_uninitialized.png)
 
-OUTPUT mode and LOW signal NC Pin 👇
-![Non Connected / OUTPUT mode with LOW signal](images/nc_02_output_low.png)
+Potentially destructive behavior: an uninitialized pin picks up crosstalk from adjacent pins during read and write operations. The induced excursions are on the order of 1 V and match the toggling pattern of the neighboring address pin. It is unclear whether this unexpected signal on the NC pin affects device operation, but the behavior does not look safe.
 
 INPUT_PULLUP NC Pin 👇
 ![Non Connected / INPUT_PULLUP mode](images/nc_03_input_pullup.png)
+
+Using `INPUT_PULLUP` mode works, but it drives the NC pin `HIGH`, while many datasheets recommend tying NC pins to `GND`. I have not observed adverse behavior with `INPUT_PULLUP`; in fact, I migrated all EEPROM API interfaces to this scheme. It functions correctly, though the mismatch with the `GND` recommendation is counterintuitive.
+
+Additionally, the waveforms show noise in the form of positive and negative spikes up to 1 V. This noise appears consistent with crosstalk from adjacent pins during device operation and, in pattern, resembles the noise observed on an uninitialized pin.
+
+OUTPUT mode and LOW signal NC Pin 👇
+![Non Connected / OUTPUT mode with LOW signal](images/nc_02_output_low.png)
+
+Using the `OUTPUT` mode with a `LOW` signal produces the most predictable and consistent results. No crosstalk noise from adjacent pins is observed, and the NC pin is held at 0 V, effectively tied to `GND`, which aligns with the device specifications.
 
 
 ## How Arduino Behaves During the Reset
