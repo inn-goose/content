@@ -167,7 +167,28 @@ result `xxd` after read:
 🚧 WIP 🚧
 
 ```bash
+# write the zenith dump to the EEPROM using XGecu
+minipro -p AT28C64 -s -u -w tmp/zenith_zt1_eeprom.bin
+
+# read the data from the EEPROM using XGecu
+minipro -p AT28C64 -u -r tmp/dump_programmer.bin
+
+# write the zenith dump to the EEPROM using EEPROM API
+PYTHONPATH=./eeprom_api_py_cli/:$PYTHONPATH python3 ./eeprom_api_py_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --write tmp/zenith_zt1_eeprom.bin
+
+# read the data from the EEPROM using EEPROM API
+PYTHONPATH=./eeprom_api_py_cli/:$PYTHONPATH python3 ./eeprom_api_py_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --read tmp/dump_eeprom_api.bin
+
+# convert to HEX
+xxd tmp/dump_programmer.bin > tmp/dump_programmer.hex
+xxd tmp/dump_eeprom_api.bin > tmp/dump_eeprom_api.hex
+
+# compare
+diff tmp/dump_eeprom_api.hex tmp/dump_programmer.hex
+... same content, empty diff ...
 ```
+
+![XGecu vs EEPROM API xxd diff](images/xgecu-vs-eeprom-api-xxd-diff.png)
 
 
 ## Next Steps
