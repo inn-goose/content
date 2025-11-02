@@ -250,11 +250,14 @@ I also realized that the logic probe showed the correct result: there was indeed
 I began the bisect with fairly complex operations, assuming faulty hardware behavior. In this case, however, it turned out to be a software problem of my own making. For popular hardware products, the chance of an actual hardware fault is relatively low; most often, the issue lies in my own code.
 
 The program runs stably and produces results identical to the reference.
-* [./data/reference.out]()
-* [./data/eeprom_api_fixed.out]()
+* [./data/reference.out](data/reference.out)
+* [./data/eeprom_api_fixed.out](data/eeprom_api_fixed.out)
 ```
-diff ./data/reference.out ./data/eeprom_api_fixed.out
-... no differences ...
+vimdiff ./data/reference.out ./data/eeprom_api_fixed.out
+...
+only ASCII representation, since the Arduino ASCII representation is a home made one
 ```
+
+![vimdiff success](images/vimdiff-success.png)
 
 Now I can move forward and publish the first version of the library, verified against the reference and producing stable read results. Next, I will focus on write operations and the CLI interface, taking into account the limitations of the serial bus.
