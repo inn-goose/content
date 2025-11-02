@@ -1,6 +1,4 @@
 ---
-draft: true
-###
 date: 2025-10-19
 ###
 title: Misconfigured Arduino Pins
@@ -186,19 +184,19 @@ pinMode(_nonConnectedPins[i], OUTPUT);
 digitalWrite(_nonConnectedPins[i], LOW);
 ```
 
-Uninitialized NC Pin 👇
+Uninitialized NC Pin, 500 us/div 👇
 ![Non Connected / Uninitialized](images/nc_01_uninitialized.png)
 
 Potentially destructive behavior: an uninitialized pin picks up crosstalk from adjacent pins during read and write operations. The induced excursions are on the order of 1 V and match the toggling pattern of the neighboring address pin. It is unclear whether this unexpected signal on the NC pin affects device operation, but the behavior does not look safe.
 
-INPUT_PULLUP NC Pin 👇
+INPUT_PULLUP NC Pin, 500 us/div 👇
 ![Non Connected / INPUT_PULLUP mode](images/nc_03_input_pullup.png)
 
 Using `INPUT_PULLUP` mode works, but it drives the NC pin `HIGH`, while many datasheets recommend tying NC pins to `GND`. I have not observed adverse behavior with `INPUT_PULLUP`; in fact, I migrated all EEPROM API interfaces to this scheme. It functions correctly, though the mismatch with the `GND` recommendation is counterintuitive.
 
 Additionally, the waveforms show noise in the form of positive and negative spikes up to 1 V. This noise appears consistent with crosstalk from adjacent pins during device operation and, in pattern, resembles the noise observed on an uninitialized pin.
 
-OUTPUT mode and LOW signal NC Pin 👇
+OUTPUT mode and LOW signal NC Pin, 500 us/div 👇
 ![Non Connected / OUTPUT mode with LOW signal](images/nc_02_output_low.png)
 
 Using the `OUTPUT` mode with a `LOW` signal produces the most predictable and consistent results. No crosstalk noise from adjacent pins is observed, and the NC pin is held at 0 V, effectively tied to `GND`, which aligns with the device specifications.
@@ -206,34 +204,32 @@ Using the `OUTPUT` mode with a `LOW` signal produces the most predictable and co
 
 ## How Arduino Behaves During the Reset
 
-🚧 WIP 🚧
+I apply a PWM pulse with a 12 ms period to three pins, each with a slight phase offset, to make the reset cycle visible against the normal 5 V operating amplitude. The reset cycle, triggered by the onboard button, lasts about 1.7 seconds on the Arduino Uno R3. During this period, all pins behave identically, entering the uninitialized state described in the previous section and showing a sawtooth waveform with an amplitude of approximately 1 V.
 
-```cpp
-void setup() {
-  pinMode(11, OUTPUT);
-  pinMode(12, OUTPUT);
-  // 13 is a management one, use 10 for the non-management case
-  pinMode(13, OUTPUT);
-}
-
-void loop() {
-  const int delay_us = 12000;
-  delayMicroseconds(delay_us / 6);
-  digitalWrite(11, 1);
-  delayMicroseconds(delay_us / 6);
-  digitalWrite(12, 1);
-  delayMicroseconds(delay_us / 6);
-  digitalWrite(13, 1);  // or 10
-  delayMicroseconds(delay_us / 6);
-  digitalWrite(11, 0);
-  delayMicroseconds(delay_us / 6);
-  digitalWrite(12, 0);
-  delayMicroseconds(delay_us / 6);
-  digitalWrite(13, 0);  // or 10
-}
-```
-
-![Reset with Management Pin / Full Cycle](images/reset_01_01.png)
-![Reset with Management Pin / Startup Details](images/reset_01_02.png)
+Full Reset Cycle for 3 Pins, 200 ms/div 👇
 ![Reset without Management Pin / Full Cycle](images/reset_02_01.png)
+
+The graph shows no significant phase shift between the sawtooth waveforms of different pins during the reset cycle. Transitions between 0 V and 1 V occur at nearly the same time across all pins throughout the entire reset period.
+
+End of the Reset Cycle for 3 Pins, 5 ms/div 👇
 ![Reset without Management Pin / Startup Details](images/reset_02_02.png)
+
+At the end of the reset cycle, pin initialization restores them to the normal operating state, and they resume generating the correct 0–1 pulse sequence with a slight phase offset, as programmed. The small spikes on the blue trace are most likely due to oscilloscope probe miscalibration.
+
+Yellow is the management `LED_BUILTIN` pin, 200 ms/div 👇
+![Reset with Management Pin / Full Cycle](images/reset_01_01.png)
+
+The behavior of the `LED_BUILTIN` pin 13, which drives the onboard LED, differs from that of other pins on the Arduino Uno. For most of the reset cycle time, the LED pin remains initialized, with two short periods of indeterminacy at the beginning and end of the cycle.
+
+Additionally, the board uses pin 13 to signal the reset process by sending three consecutive pulses at the start of the cycle. This is likely one reason why pin 13 should not be used for interfacing with external devices, as the board reserves it for its internal operations.
+
+End of the Reset Cycle for the management `LED_BUILTIN` pin, 20 ms/div 👇
+![Reset with Management Pin / Startup Details](images/reset_01_02.png)
+
+This graph shows that the duration of a single sawtooth cycle is approximately 20 ms, resulting in about 85 oscillations between 0 V and 1 V over the 1.7-second full reset cycle.
+
+This is the most critical observation: an external connected chip may interpret voltage transitions between 0 V and 1 V as legitimate digital signal changes and execute corresponding operations according to its datasheet.
+
+As a result, during a full reset cycle, the external chip can receive up to 85 false operation signals. Because the waveforms on different pins are only slightly phase-shifted, these signals can resemble valid command sequences supported by the device.
+
+In practice, this leads to **data corruption** on the connected EEPROM 28C64, which can overwrite about 20 random memory cells during a single reset cycle. I will discuss this issue in more detail in one of the upcoming articles.
