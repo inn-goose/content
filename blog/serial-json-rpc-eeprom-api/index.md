@@ -3,7 +3,7 @@ draft: true
 ###
 date: 2025-10-26
 ###
-title: Serial JSON-RPC Protocol for EEPROM API
+title: Serial JSON-RPC for EEPROM API Project
 ###
 description: <short-TLDR>
 summary: <long-TLDR>
@@ -15,30 +15,6 @@ tags: [arduino, serial-json-rpc, eeprom-api]
 
 🚧 WIP 🚧
 
-
-
-## RAW Serial Protocol Limitations
-
-🚧 WIP 🚧
-
-* serial connection resets the board
-* limited controller memory
-* overcomplicated non-RPC implementation
-* non-scalable interface, requires manual formatting
-
-
-
-## JSON-RPC Interface
-
-🚧 WIP 🚧
-
-https://www.jsonrpc.org/specification
-
-
-
-## Board Implementation
-
-🚧 WIP 🚧
 
 ### JSON-RPC API
 
@@ -195,5 +171,5 @@ diff tmp/dump_eeprom_api.hex tmp/dump_programmer.hex
 
 🚧 WIP 🚧
 
-* arduino pins metastable state
+* arduino pins metastable state [Misconfigured Arduino Pins](https://goose.sh/blog/misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset)
 * arduino resets and data corruption
