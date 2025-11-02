@@ -232,4 +232,4 @@ This is the most critical observation: an external connected chip may interpret 
 
 As a result, during a full reset cycle, the external chip can receive up to 85 false operation signals. Because the waveforms on different pins are only slightly phase-shifted, these signals can resemble valid command sequences supported by the device.
 
-In practice, this leads to **data corruption** on the connected EEPROM 28C64, which can overwrite about 20 random memory cells during a single reset cycle. I will discuss this issue in more detail in one of the upcoming articles.
+In practice, this leads to **data corruption** on the connected EEPROM 28C64, which can overwrite about 20 random memory cells during a single reset cycle. I will discuss this issue in more detail in one of the upcoming posts.
