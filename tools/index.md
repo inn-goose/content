@@ -7,8 +7,8 @@ showWordCount: false
 showReadingTime: false
 showZenMode: false
 ###
-showLikes: true
-showViews: true
+showLikes: false
+showViews: false
 ###
 showAuthor: true
 showAuthorBottom: true
