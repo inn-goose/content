@@ -1,5 +1,5 @@
 ---
-date: 2025-10-14
+date: 2025-10-18
 ###
 title: Serial JSON RPC for Arduino
 ###

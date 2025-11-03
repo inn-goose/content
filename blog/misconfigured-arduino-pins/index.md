@@ -1,5 +1,5 @@
 ---
-date: 2025-10-19
+date: 2025-10-12
 ###
 title: Misconfigured Arduino Pins
 ###
