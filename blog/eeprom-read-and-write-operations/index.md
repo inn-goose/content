@@ -36,7 +36,7 @@ At this initial stage I am not concerned with tolerances, error handling, or per
 ![EEPROM 28C64 Pins Layout](images/eeprom-28c64-pins-layout.png)
 
 
-## EEPROM API for Arduino
+## EEPROM Programmer Library
 
 ```cpp
 class Eeprom28C64Api {

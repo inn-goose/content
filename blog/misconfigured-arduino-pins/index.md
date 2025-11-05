@@ -11,7 +11,7 @@ tags: [arduino, debugging, oscilloscope]
 
 ## TLDR
 
-In this post, I summarize my observations of incorrect Arduino behavior made during debugging of the [EEPROM API for Arduino]((https://github.com/inn-goose/eeprom-api-arduino)) project. The related post, [Debugging the EEPROM API]((https://goose.sh/blog/debugging-eeprom-api/)), describes the debugging process and the sequence of steps that led to identifying the root cause.
+In this post, I summarize my observations of incorrect Arduino behavior made during debugging of the [EEPROM Programmer]((https://github.com/inn-goose/eeprom-programmer)) project. The related post, [Debugging the EEPROM Programmer]((https://goose.sh/blog/debugging-eeprom-api/)), describes the debugging process and the sequence of steps that led to identifying the root cause.
 
 I connect external chips such as CPUs or EEPROMs directly to the Arduino and exchange digital signals with them. The resulting signal often resembles PWM, where the oscilloscope waveform appears as a series of narrow pulses. Complex chips expect this kind of pulsed signaling and can respond unpredictably to any other form of data exchange.
 
@@ -173,7 +173,7 @@ The same chip family defines different connection modes for different operating 
 
 As discussed above, leaving such pins uninitialized can cause unpredictable and sometimes destructive behavior. The question is how to properly initialize an NC pin. Community guidance often suggests `INPUT_PULLUP`, I compare it with `OUTPUT` mode driven `LOW` and evaluate the chip’s behavior.
 
-The following example is taken from the codebase of my [EEPROM API]((https://github.com/inn-goose/eeprom-api-arduino)) project.
+The following example is taken from the codebase of my [EEPROM Programmer]((https://github.com/inn-goose/eeprom-programmer)) project.
 
 ```cpp
 // INPUT_PULLUP
@@ -192,7 +192,7 @@ Potentially destructive behavior: an uninitialized pin picks up crosstalk from a
 INPUT_PULLUP NC Pin, 500 us/div 👇
 ![Non Connected / INPUT_PULLUP mode](images/nc_03_input_pullup.png)
 
-Using `INPUT_PULLUP` mode works, but it drives the NC pin `HIGH`, while many datasheets recommend tying NC pins to `GND`. I have not observed adverse behavior with `INPUT_PULLUP`; in fact, I migrated all EEPROM API interfaces to this scheme. It functions correctly, though the mismatch with the `GND` recommendation is counterintuitive.
+Using `INPUT_PULLUP` mode works, but it drives the NC pin `HIGH`, while many datasheets recommend tying NC pins to `GND`. I have not observed adverse behavior with `INPUT_PULLUP`; in fact, I migrated all [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer) interfaces to this scheme. It functions correctly, though the mismatch with the `GND` recommendation is counterintuitive.
 
 Additionally, the waveforms show noise in the form of positive and negative spikes up to 1 V. This noise appears consistent with crosstalk from adjacent pins during device operation and, in pattern, resembles the noise observed on an uninitialized pin.
 

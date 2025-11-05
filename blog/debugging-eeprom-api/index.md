@@ -1,28 +1,28 @@
 ---
 date: 2025-09-18
 ###
-title: Debugging the EEPROM API
+title: Debugging the EEPROM Programmer
 ###
 description: Corrupted EEPROM reads were traced not to wiring noise but to uninitialized Arduino address pins. Correct initialization fixed the issue, and the API now matches hardware programmer output.
-summary: The EEPROM API initially returned corrupted data. I tested wiring, bit ordering, and bus isolation, suspecting noise on the data lines. Oscilloscope traces suggested interference, but the root cause was software, several Arduino address pins were never initialized. These floating pins produced unstable signals that mimicked noise. After proper initialization, the API produced stable results identical to a reference programmer.
+summary: The EEPROM Programmer initially returned corrupted data. I tested wiring, bit ordering, and bus isolation, suspecting noise on the data lines. Oscilloscope traces suggested interference, but the root cause was software, several Arduino address pins were never initialized. These floating pins produced unstable signals that mimicked noise. After proper initialization, the API produced stable results identical to a reference programmer.
 ###
 tags: [arduino, eeprom, debugging, oscilloscope]
 ---
 
-**EEPROM API** is my project for reading and writing the 28C64 EEPROM, while also helping me learn:
+**EEPROM Programmer** is my project for reading and writing the 28C64 EEPROM, while also helping me learn:
 * how the EEPROM chip works and what its limitations are
 * how to create a virtual environment for this chip using Arduino
 * how to translate waveforms from the datasheet into C++ code
 * how to make this code both efficient and reliable
 
-Here are a couple of introductory articles ([EEPROM Read and Write Operations with Arduino](https://goose.sh/blog/eeprom-read-and-write-operations/), [EEPROM 28C64 API Performance with Arduino](https://goose.sh/blog/eeprom-api-performance/)) on the topic and the project itself on [GitHub](https://github.com/inn-goose/eeprom-api-arduino), still in development.
+Here are a couple of introductory articles ([EEPROM Read and Write Operations with Arduino](https://goose.sh/blog/eeprom-read-and-write-operations/), [EEPROM 28C64 API Performance with Arduino](https://goose.sh/blog/eeprom-api-performance/)) on the topic and the project itself on [GitHub](https://github.com/inn-goose/eeprom-programmer), still in development.
 
 
 ### TLDR
 
-![Measure EEPROM API for Arduino with an Oscilloscope](images/measure-with-oscilloscope.jpeg)
+![Measure EEPROM Programmer for Arduino with an Oscilloscope](images/measure-with-oscilloscope.jpeg)
 
-The goal was to verify that data read by the EEPROM API matched the output from a hardware programmer. Initial results showed corrupted and inconsistent data. I tested multiple hypotheses: experimenting with bit ordering, checking address and data pins with a logic probe and oscilloscope, replacing ribbon cables with jumper wires, and isolating the address and data buses. These experiments suggested noise on the data pins, while address pins appeared stable.
+The goal was to verify that data read by the EEPROM Programmer matched the output from a hardware programmer. Initial results showed corrupted and inconsistent data. I tested multiple hypotheses: experimenting with bit ordering, checking address and data pins with a logic probe and oscilloscope, replacing ribbon cables with jumper wires, and isolating the address and data buses. These experiments suggested noise on the data pins, while address pins appeared stable.
 
 Further inspection revealed the actual cause: several address pins on the Arduino were not properly initialized. The unconnected pins produced unstable waveforms that looked like noise and led to corrupted reads. Correcting the initialization resolved the issue. The API now produces stable results identical to the reference programmer, and the next step is adding write operations and a CLI.
 
@@ -48,7 +48,7 @@ minipro -p AT28C64 -u -r ./dump.bin && xxd dump.bin
 "-u" unlocks the chip for writing (hack)
 ```
 
-The main goal of this debugging exercise is to verify that the read results from both the programmer and the EEPROM API are effectively identical. However, this is not the case in the initial state.
+The main goal of this debugging exercise is to verify that the read results from both the XGecu Programmer and the EEPROM Programmer are effectively identical. However, this is not the case in the initial state.
 
 I have prepared several binary dumps with test data: an FF pattern, a 00 pattern, an EF pattern, and a dump from a real EEPROM taken from an old computer. The [real EEPROM dump](https://github.com/misterblack1/zenith_zt1/blob/main/444-187%20U114%20ROM%202732.bin) contains lines of text that I'll use as reference points for comparison.
 ```bash
@@ -65,7 +65,7 @@ $> xxd ./444-187\ U114\ ROM\ 2732.bin
 
 ## Initial State and [Bit Numbering](https://en.wikipedia.org/wiki/Bit_numbering)
 
-I configured the EEPROM API serial output to match the format of `xxd`, making it easier to compare results and check lines by their addresses. I use `arduino-cli` to read serial data from the microcontroller because it lets me record the entire output. The Arduino IDE serial monitor's copy-paste feature doesn't work properly for this.
+I configured the EEPROM Programmer serial output to match the format of `xxd`, making it easier to compare results and check lines by their addresses. I use `arduino-cli` to read serial data from the microcontroller because it lets me record the entire output. The Arduino IDE serial monitor's copy-paste feature doesn't work properly for this.
 
 `arduino-cli` read serial:
 ```bash
@@ -118,9 +118,9 @@ Thus, the conversion of bits from the chip's memory into byte values works corre
 
 ## Addressing and Dummy Patterns
 
-The random data returned by the EEPROM API doesn't seem entirely random; it looks like the system is returning correct data—but from different addresses, as if the addressing is disrupted. To verify this, I decided to test the system with two dummy patterns, `FF` and `EF`. If only the values `E` and `F` appear in the output, then the issue is definitely with the addressing.
+The random data returned by the EEPROM Programmer doesn't seem entirely random; it looks like the system is returning correct data—but from different addresses, as if the addressing is disrupted. To verify this, I decided to test the system with two dummy patterns, `FF` and `EF`. If only the values `E` and `F` appear in the output, then the issue is definitely with the addressing.
 
-Writing the entire EEPROM space with `FF` using the programmer and then reading the data with the EEPROM API shows no anomalies, as the whole address space is filled with `FF` values. Even if the addressing is broken, it still returns `FF`.
+Writing the entire EEPROM space with `FF` using the programmer and then reading the data with the EEPROM Programmer shows no anomalies, as the whole address space is filled with `FF` values. Even if the addressing is broken, it still returns `FF`.
 ```bash
 00000000: ffff ffff ffff ffff ffff ffff ffff ffff  ................
 00000010: ffff ffff ffff ffff ffff ffff ffff ffff  ................
@@ -141,14 +141,14 @@ The software part seems correct, but the chip is mixing up data for different ad
 
 I decided to determine whether the program sets the addresses for reading memory cells correctly. To do this I used a logic probe and checked each pin of the chip. The check showed two pins with no visible signal, as if they were not connected. Assuming the logic probe has limited sensitivity I verified the configuration with an oscilloscope.
 
-![Measure EEPROM API for Arduino with a Logic Probe](images/measure-with-logic-probe.jpeg)
+![Measure EEPROM Programmer for Arduino with a Logic Probe](images/measure-with-logic-probe.jpeg)
 
 I use a delay inside the data reading function to pause the program, which allows me to measure the signals on all pins.
 ```cpp
   if (address == 3967) delay(1000000);
 ```
 
-![Measure EEPROM API for Arduino with an Oscilloscope. Ribbon Cable Noise](images/measure-with-oscilloscope-noise-ribbon.jpeg)
+![Measure EEPROM Programmer for Arduino with an Oscilloscope. Ribbon Cable Noise](images/measure-with-oscilloscope-noise-ribbon.jpeg)
 
 I enabled debug output in the API to display the digital states of the address and data pins, where `0` corresponds to *0V* and `1` corresponds to *5V*. Address `b0000000111110` returns the value `b11000110` or the ASCII letter `c`. The oscilloscope readings for the address and data pins match the log output, showing the expected bit pattern. This confirms the value is correct.
 ```
@@ -173,7 +173,7 @@ I suspect that the ribbon cable may introduce electromagnetic noise, or that the
 
 Replacing the ribbon cable with regular jumper wires did not help; the noise remained. The oscilloscope records the same amount of noise on the `I/O4` pin. 
 
-![Measure EEPROM API for Arduino with an Oscilloscope. Jumper Wires Noise](images/measure-with-oscilloscope-noise-jumpers.jpeg)
+![Measure EEPROM Programmer for Arduino with an Oscilloscope. Jumper Wires Noise](images/measure-with-oscilloscope-noise-jumpers.jpeg)
 
 The program continues to return the same corrupted data with the new wiring as before. It reads `b11111111` instead of `10100110`.
 ```

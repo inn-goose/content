@@ -1,11 +1,11 @@
 ---
 date: 2025-08-27
 ###
-title: EEPROM API for Arduino (GitHub)
-externalUrl: "https://github.com/inn-goose/eeprom-api-arduino"
+title: EEPROM Programmer (GitHub)
+externalUrl: "https://github.com/inn-goose/eeprom-programmer"
 ###
-description: GitHub repository for the "EEPROM API for Arduino" project
-summary: GitHub repository for the "EEPROM API for Arduino" project
+description: GitHub repository for the "EEPROM Programmer" project
+summary: GitHub repository for the "EEPROM Programmer" project
 ###
 tags: [arduino, eeprom, github]
 ---

@@ -3,7 +3,7 @@ draft: true
 ###
 date: 2025-10-26
 ###
-title: Serial JSON-RPC for EEPROM API Project
+title: Serial JSON-RPC for EEPROM Programmer Project
 ###
 description: <short-TLDR>
 summary: <long-TLDR>
@@ -78,7 +78,7 @@ To read first 4 bits, send these commands one by one using Arduino IDE's *Serial
 
 🚧 WIP 🚧
 
-Check the [`eeprom-api-arduino`](https://github.com/inn-goose/eeprom-api-arduino) for the python `venv` init and the `zenith_zt1_eeprom.bin` source.
+Check the [`eeprom-programmer`](https://github.com/inn-goose/eeprom-programmer) for the python `venv` init and the `zenith_zt1_eeprom.bin` source.
 
 ### Read Operation
 
@@ -138,21 +138,21 @@ result `xxd` after read:
 ```
 
 
-## EEPROM API vs XGecu Programmator
+## EEPROM Programmer vs XGecu Programmer
 
 🚧 WIP 🚧
 
 ```bash
-# write the zenith dump to the EEPROM using XGecu
+# write the zenith dump to the EEPROM using XGecu Programmer
 minipro -p AT28C64 -s -u -w tmp/zenith_zt1_eeprom.bin
 
-# read the data from the EEPROM using XGecu
+# read the data from the EEPROM using XGecu Programmer
 minipro -p AT28C64 -u -r tmp/dump_programmer.bin
 
-# write the zenith dump to the EEPROM using EEPROM API
+# write the zenith dump to the EEPROM using EEPROM Programmer
 PYTHONPATH=./eeprom_api_py_cli/:$PYTHONPATH python3 ./eeprom_api_py_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --write tmp/zenith_zt1_eeprom.bin
 
-# read the data from the EEPROM using EEPROM API
+# read the data from the EEPROM using EEPROM Programmer
 PYTHONPATH=./eeprom_api_py_cli/:$PYTHONPATH python3 ./eeprom_api_py_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --read tmp/dump_eeprom_api.bin
 
 # convert to HEX
@@ -164,7 +164,7 @@ diff tmp/dump_eeprom_api.hex tmp/dump_programmer.hex
 ... same content, empty diff ...
 ```
 
-![XGecu vs EEPROM API xxd diff](images/xgecu-vs-eeprom-api-xxd-diff.png)
+![XGecu Programmer vs EEPROM Programmer xxd diff](images/xgecu-vs-eeprom-api-xxd-diff.png)
 
 
 ## Next Steps

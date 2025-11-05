@@ -1,17 +1,17 @@
 ---
 date: 2025-08-30
 ###
-title: EEPROM API Performance with Arduino
+title: EEPROM Programmer Performance with Arduino
 ###
-description: EEPROM API on Arduino optimized with waveform sequencing and polling. Faster writes and stable reads confirmed with oscilloscope traces
-summary: Evaluation of EEPROM API performance on Arduino. Overhead from digital I/O measured, and oscilloscope traces confirmed datasheet timing. Active polling of the READY/BUSY pin reduced write latency while maintaining reliability. Sequential write/read verification showed consistent integrity. Future work includes endurance testing, retention studies, and comparing Arduino boards with different clock speeds.
+description: EEPROM Programmer on Arduino optimized with waveform sequencing and polling. Faster writes and stable reads confirmed with oscilloscope traces
+summary: Evaluation of EEPROM Programmer performance on Arduino. Overhead from digital I/O measured, and oscilloscope traces confirmed datasheet timing. Active polling of the READY/BUSY pin reduced write latency while maintaining reliability. Sequential write/read verification showed consistent integrity. Future work includes endurance testing, retention studies, and comparing Arduino boards with different clock speeds.
 ###
 tags: [arduino, eeprom, performance, oscilloscope]
 ---
 
 ## Motivation
 
-In my previous post, I described a basic implementation of the EEPROM API and demonstrated, in a simple example, how to read and write a few data cells. At that point, performance and operation speed were not important, as the goal was only to provide an initial demonstration.
+In my previous post, I described a basic implementation of the EEPROM Programmer and demonstrated, in a simple example, how to read and write a few data cells. At that point, performance and operation speed were not important, as the goal was only to provide an initial demonstration.
 
 Now I focus on improving performance and comparing the EEPROM datasheet values with the actual operation speed. This should not be considered a precise experiment on measuring the raw speed of the chip itself, because the Arduino platform inevitably introduces certain performance limitations by adding some overhead. The goal is to make the read and write API operations as fast as realistically possible while taking platform constraints into account.
 

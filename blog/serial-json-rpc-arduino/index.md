@@ -11,7 +11,7 @@ tags: [arduino, serial, json-rpc]
 
 ## TLDR
 
-While developing the [EEPROM API](https://github.com/inn-goose/eeprom-api-arduino) project, I encountered a data transfer problem. On one hand, the Arduino IDE's Serial Console is not designed for working with binary data, so it’s necessary to implement a custom `xxd`-like formatter to analyze the read output. On the other hand, designing a protocol to send, for example, 256 KB of binary data over Serial for EEPROM writing is nontrivial.
+While developing the [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer) project, I encountered a data transfer problem. On one hand, the Arduino IDE's Serial Console is not designed for working with binary data, so it’s necessary to implement a custom `xxd`-like formatter to analyze the read output. On the other hand, designing a protocol to send, for example, 256 KB of binary data over Serial for EEPROM writing is nontrivial.
 
 Existing tools such as `stty` or a simple Python CLI can be used, but they don’t solve the problem of unification. Each time, it’s necessary to define a new protocol format and implement command handlers both on the board and on the CLI side. To address this, I decided to implement the [JSON-RPC](https://www.jsonrpc.org/specification) protocol for Arduino and reuse it in current and future projects. The implementation hides all encoding/decoding and serial-transfer details, allowing the focus to remain on RPC function logic.
 
@@ -115,6 +115,6 @@ Adding an RPC layer between the computer and Arduino simplifies control and data
 
 ## Next Steps
 
-* Write a post describing the JSON-RPC protocol implementation for the [EEPROM API](https://github.com/inn-goose/eeprom-api-arduino) project, including detailed protocol structure and usage examples;
+* Write a post describing the JSON-RPC protocol implementation for the [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer) project, including detailed protocol structure and usage examples;
 
 * Investigate how Arduino’s automatic reset on Serial connection can affect data integrity of an attached EEPROM chip, considering the latest [Arduino Reset](https://goose.sh/blog/misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset) findings.

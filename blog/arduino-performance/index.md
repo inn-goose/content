@@ -11,7 +11,7 @@ tags: [arduino, eeprom, performance, oscilloscope]
 
 ## TLDR
 
-When I was working on improving the performance of my [EEPROM API](https://github.com/inn-goose/eeprom-api-arduino), I noticed that different microcontroller models execute read operations at different speeds, say the difference between the GIGA and the MEGA can be as much as 20x.
+When I was working on improving the performance of my [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer), I noticed that different microcontroller models execute read operations at different speeds, say the difference between the GIGA and the MEGA can be as much as 20x.
 
 So I decided to measure the performance of different Arduino microcontroller models using an oscilloscope. I'm trying to determine the minimum execution time of a simple digital pin toggle operation. And try to estimate the number of CPU instructions based on the CPU clock speed and the operation’s execution time.
 
