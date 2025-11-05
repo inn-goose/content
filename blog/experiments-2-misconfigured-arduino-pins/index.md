@@ -1,17 +1,17 @@
 ---
 date: 2025-10-12
 ###
-title: Misconfigured Arduino Pins
+title: "Misconfigured Arduino Pins"
 ###
 description: Uninitialized or misconfigured Arduino pins can generate unstable or distorted signals, especially during board reset. These fluctuations may lead to data corruption or unpredictable behavior in connected chips such as EEPROMs or DACs.
 summary: Misconfigured or uninitialized Arduino pins generate unstable voltage levels that vary with frequency and signal state. During board reset, all pins enter a floating state, producing undefined signals that can affect connected devices. This can lead to data corruption or unpredictable behavior in chips such as EEPROMs or DACs.
 ###
-tags: [arduino, debugging, oscilloscope]
+tags: [experiments, arduino, debugging, oscilloscope]
 ---
 
 ## TLDR
 
-In this post, I summarize my observations of incorrect Arduino behavior made during debugging of the [EEPROM Programmer]((https://github.com/inn-goose/eeprom-programmer)) project. The related post, [Debugging the EEPROM Programmer]((https://goose.sh/blog/debugging-eeprom-api/)), describes the debugging process and the sequence of steps that led to identifying the root cause.
+In this post, I summarize my observations of incorrect Arduino behavior made during debugging of the [EEPROM Programmer]((https://github.com/inn-goose/eeprom-programmer)) project. The related post, [EEPROM Programmer: Debugging Read Operations]((https://goose.sh/blog/eeprom-programmer-3-debugging-pt-1/)), describes the debugging process and the sequence of steps that led to identifying the root cause.
 
 I connect external chips such as CPUs or EEPROMs directly to the Arduino and exchange digital signals with them. The resulting signal often resembles PWM, where the oscilloscope waveform appears as a series of narrow pulses. Complex chips expect this kind of pulsed signaling and can respond unpredictably to any other form of data exchange.
 

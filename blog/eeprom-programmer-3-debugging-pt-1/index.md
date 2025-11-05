@@ -1,12 +1,12 @@
 ---
 date: 2025-09-18
 ###
-title: Debugging the EEPROM Programmer
+title: "EEPROM Programmer: Debugging Read Operations"
 ###
 description: Corrupted EEPROM reads were traced not to wiring noise but to uninitialized Arduino address pins. Correct initialization fixed the issue, and the API now matches hardware programmer output.
 summary: The EEPROM Programmer initially returned corrupted data. I tested wiring, bit ordering, and bus isolation, suspecting noise on the data lines. Oscilloscope traces suggested interference, but the root cause was software, several Arduino address pins were never initialized. These floating pins produced unstable signals that mimicked noise. After proper initialization, the API produced stable results identical to a reference programmer.
 ###
-tags: [arduino, eeprom, debugging, oscilloscope]
+tags: [eeprom-programmer, debugging, data-corruption, oscilloscope, arduino]
 ---
 
 **EEPROM Programmer** is my project for reading and writing the 28C64 EEPROM, while also helping me learn:
@@ -15,7 +15,7 @@ tags: [arduino, eeprom, debugging, oscilloscope]
 * how to translate waveforms from the datasheet into C++ code
 * how to make this code both efficient and reliable
 
-Here are a couple of introductory articles ([EEPROM Read and Write Operations with Arduino](https://goose.sh/blog/eeprom-read-and-write-operations/), [EEPROM 28C64 API Performance with Arduino](https://goose.sh/blog/eeprom-api-performance/)) on the topic and the project itself on [GitHub](https://github.com/inn-goose/eeprom-programmer), still in development.
+Here are a couple of introductory posts ([Implementing Initial R/W Interface for AT28C64](https://goose.sh/blog/eeprom-programmer-1-initial-implementation/), [Measuting Performance with Oscilloscope](https://goose.sh/blog/eeprom-programmer-2-performance/)) on the topic and the project itself on [GitHub](https://github.com/inn-goose/eeprom-programmer), still in development.
 
 
 ### TLDR

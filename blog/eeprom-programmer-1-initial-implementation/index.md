@@ -1,12 +1,12 @@
 ---
 date: 2025-08-27
 ###
-title: EEPROM Read and Write Operations with Arduino
+title: "EEPROM Programmer: Implementing Initial R/W Interface for AT28C64"
 ###
 description: Arduino + 28C64 EEPROM. Simple API for byte reads/writes, breadboard with LCD/button, verified basics, noted waveform mismatch and retention quirks.
 summary: Practical walkthrough of 28C64 EEPROM on Arduino Giga. Pin mapping, minimal API for reads/writes, breadboard + LCD UI. Verified operation, observed write-edge vs datasheet mismatch, early-address retention issues, and plans for timing and READY/!BUSY testing.
 ###
-tags: [arduino, eeprom]
+tags: [eeprom-programmer, arduino]
 ---
 
 ## Motivation
@@ -126,6 +126,6 @@ Thus, in my case the working sequence was:
 
 ## Summary / Next Steps
 
-The chip behaves as expected, writing data to memory and allowing it to be read afterward. Questions about performance and the exact write operation remain open. I will address these issues in future articles in the EEPROM and Arduino series. For that, I will need readings from the `READY/!BUSY` pin with an oscilloscope.
+The chip behaves as expected, writing data to memory and allowing it to be read afterward. Questions about performance and the exact write operation remain open. I will address these issues in future posts in the EEPROM and Arduino series. For that, I will need readings from the `READY/!BUSY` pin with an oscilloscope.
 
 Additionally, data verification raises an interesting point. The chip I am using does not reliably retain data at the beginning of the address space after a power cycle. I wrote numbers 0–9 to the first ten addresses, but after a power cycle, reading these cells returns random values. However, using cells from the middle of the address space does not show this problem.

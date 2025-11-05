@@ -3,12 +3,12 @@ draft: true
 ###
 date: 2025-10-26
 ###
-title: Serial JSON-RPC for EEPROM Programmer Project
+title: "EEPROM Programmer: Implementing Serial JSON-RPC for Arduino"
 ###
 description: <short-TLDR>
 summary: <long-TLDR>
 ###
-tags: [arduino, serial-json-rpc, eeprom-api]
+tags: [eeprom-programmer, serial-json-rpc, arduino]
 ---
 
 ## TLDR
@@ -171,5 +171,5 @@ diff tmp/dump_eeprom_api.hex tmp/dump_programmer.hex
 
 🚧 WIP 🚧
 
-* arduino pins metastable state [Misconfigured Arduino Pins](https://goose.sh/blog/misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset)
+* arduino pins metastable state [Misconfigured Arduino Pins](https://goose.sh/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset)
 * arduino resets and data corruption
