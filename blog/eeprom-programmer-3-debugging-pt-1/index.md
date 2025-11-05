@@ -15,7 +15,7 @@ tags: [eeprom-programmer, debugging, data-corruption, oscilloscope, arduino]
 * how to translate waveforms from the datasheet into C++ code
 * how to make this code both efficient and reliable
 
-Here are a couple of introductory posts ([Implementing Initial R/W Interface for AT28C64](https://goose.sh/blog/eeprom-programmer-1-initial-implementation/), [Measuting Performance with Oscilloscope](https://goose.sh/blog/eeprom-programmer-2-performance/)) on the topic and the project itself on [GitHub](https://github.com/inn-goose/eeprom-programmer), still in development.
+Here are a couple of introductory posts ([Implementing Initial R/W Interface for AT28C64](/blog/eeprom-programmer-1-initial-implementation/), [Measuting Performance with Oscilloscope](/blog/eeprom-programmer-2-performance/)) on the topic and the project itself on [GitHub](https://github.com/inn-goose/eeprom-programmer), still in development.
 
 
 ### TLDR

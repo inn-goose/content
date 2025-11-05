@@ -1,5 +1,5 @@
 ---
-date: 2025-08-27
+date: 2025-08-28
 ###
 title: "EEPROM Programmer: Implementing Initial R/W Interface for AT28C64"
 ###

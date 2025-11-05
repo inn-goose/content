@@ -19,7 +19,7 @@ I built two libraries: one for the Python CLI and another for Arduino. These lib
 
 > Note, that Arduino has one unexpected behavior: when connecting over the Serial interface, the board **resets** and completely loses its internal state. If using the Arduino IDE, this behavior can be observed by simply opening and closing the Serial Monitor. This is not a peculiarity of the Python serial library implementation but rather a built-in characteristic of the Arduino platform itself.
 
-> Note, that during this reset period, all board pins remain in an **uninitialized** state for about two seconds on an UNO R3. I described the details in the [Misconfigured Arduino Pins](https://goose.sh/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset) post.
+> Note, that during this reset period, all board pins remain in an **uninitialized** state for about two seconds on an UNO R3. I described the details in the [Misconfigured Arduino Pins](/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset) post.
 
 
 ## RAW Serial Protocol Limitations
@@ -117,4 +117,4 @@ Adding an RPC layer between the computer and Arduino simplifies control and data
 
 * Write a post describing the JSON-RPC protocol implementation for the [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer) project, including detailed protocol structure and usage examples;
 
-* Investigate how Arduino’s automatic reset on Serial connection can affect data integrity of an attached EEPROM chip, considering the latest [Arduino Reset](https://goose.sh/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset) findings.
+* Investigate how Arduino’s automatic reset on Serial connection can affect data integrity of an attached EEPROM chip, considering the latest [Arduino Reset](/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset) findings.

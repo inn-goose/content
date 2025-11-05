@@ -11,7 +11,7 @@ tags: [experiments, arduino, debugging, oscilloscope]
 
 ## TLDR
 
-In this post, I summarize my observations of incorrect Arduino behavior made during debugging of the [EEPROM Programmer]((https://github.com/inn-goose/eeprom-programmer)) project. The related post, [EEPROM Programmer: Debugging Read Operations]((https://goose.sh/blog/eeprom-programmer-3-debugging-pt-1/)), describes the debugging process and the sequence of steps that led to identifying the root cause.
+In this post, I summarize my observations of incorrect Arduino behavior made during debugging of the [EEPROM Programmer]((https://github.com/inn-goose/eeprom-programmer)) project. The related post, [EEPROM Programmer: Debugging Read Operations]((/blog/eeprom-programmer-3-debugging-pt-1/)), describes the debugging process and the sequence of steps that led to identifying the root cause.
 
 I connect external chips such as CPUs or EEPROMs directly to the Arduino and exchange digital signals with them. The resulting signal often resembles PWM, where the oscilloscope waveform appears as a series of narrow pulses. Complex chips expect this kind of pulsed signaling and can respond unpredictably to any other form of data exchange.
 

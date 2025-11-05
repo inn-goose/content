@@ -171,5 +171,5 @@ diff tmp/dump_eeprom_api.hex tmp/dump_programmer.hex
 
 🚧 WIP 🚧
 
-* arduino pins metastable state [Misconfigured Arduino Pins](https://goose.sh/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset)
+* arduino pins metastable state [Misconfigured Arduino Pins](/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset)
 * arduino resets and data corruption
