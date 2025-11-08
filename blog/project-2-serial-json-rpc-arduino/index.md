@@ -11,15 +11,17 @@ tags: [project, serial-json-rpc-arduino, github]
 
 ## TLDR
 
+> [!IMPORTANT]
+> Note, that Arduino has one unexpected behavior: when connecting over the Serial interface, the board **resets** and completely loses its internal state. If using the Arduino IDE, this behavior can be observed by simply opening and closing the Serial Monitor. This is not a peculiarity of the Python serial library implementation but rather a built-in characteristic of the Arduino platform itself.
+
+> [!WARNING]
+> Note, that during this reset period, all board pins remain in an **uninitialized** state for about two seconds on an UNO R3. I described the details in the [Misconfigured Arduino Pins](/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset) post.
+
 While developing the [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer) project, I encountered a data transfer problem. On one hand, the Arduino IDE's Serial Console is not designed for working with binary data, so it’s necessary to implement a custom `xxd`-like formatter to analyze the read output. On the other hand, designing a protocol to send, for example, 256 KB of binary data over Serial for EEPROM writing is nontrivial.
 
 Existing tools such as `stty` or a simple Python CLI can be used, but they don’t solve the problem of unification. Each time, it’s necessary to define a new protocol format and implement command handlers both on the board and on the CLI side. To address this, I decided to implement the [JSON-RPC](https://www.jsonrpc.org/specification) protocol for Arduino and reuse it in current and future projects. The implementation hides all encoding/decoding and serial-transfer details, allowing the focus to remain on RPC function logic.
 
 I built two libraries: one for the Python CLI and another for Arduino. These libraries are not intended to be distributed via `pip` or "Arduino Library Manager". The [Serial JSON-RPC for Arduino](https://github.com/inn-goose/serial-json-rpc-arduino) project is a ready-to-use template that can be copied directly into any project, integrated as described in the template's [`README.md`](https://github.com/inn-goose/serial-json-rpc-arduino/blob/main/README.md), and immediately provide RPC functionality for "Computer-to-Arduino" Serial communication.
-
-> Note, that Arduino has one unexpected behavior: when connecting over the Serial interface, the board **resets** and completely loses its internal state. If using the Arduino IDE, this behavior can be observed by simply opening and closing the Serial Monitor. This is not a peculiarity of the Python serial library implementation but rather a built-in characteristic of the Arduino platform itself.
-
-> Note, that during this reset period, all board pins remain in an **uninitialized** state for about two seconds on an UNO R3. I described the details in the [Misconfigured Arduino Pins](/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset) post.
 
 
 ## RAW Serial Protocol Limitations

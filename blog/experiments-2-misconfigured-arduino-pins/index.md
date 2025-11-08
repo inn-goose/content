@@ -1,7 +1,7 @@
 ---
 date: 2025-10-12
 ###
-title: "Misconfigured Arduino Pins"
+title: "How to Debug Misconfigured Arduino Pins"
 ###
 description: Uninitialized or misconfigured Arduino pins can generate unstable or distorted signals, especially during board reset. These fluctuations may lead to data corruption or unpredictable behavior in connected chips such as EEPROMs or DACs.
 summary: Misconfigured or uninitialized Arduino pins generate unstable voltage levels that vary with frequency and signal state. During board reset, all pins enter a floating state, producing undefined signals that can affect connected devices. This can lead to data corruption or unpredictable behavior in chips such as EEPROMs or DACs.
