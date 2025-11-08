@@ -3,13 +3,11 @@ date: 2025-10-18
 ###
 title: "Project: Serial JSON-RPC for Arduino"
 ###
-description: Explores data transfer challenges on Arduino Serial, comparing raw and JSON-RPC approaches in scalability, memory usage, and debugging. Shows how encapsulating JSON-RPC logic in a library streamlines application development despite added overhead.
-summary: Examines the challenges of implementing data transfer over Arduino Serial, focusing on the trade-offs between raw communication and JSON-RPC. Highlights how memory limits, encoding overhead, and debugging requirements shape protocol design. Demonstrates that encapsulating JSON-RPC logic in a reusable library simplifies development and improves maintainability despite higher resource costs.
+description: "Explores data transfer challenges on Arduino Serial, comparing raw and JSON-RPC approaches in scalability, memory usage, and debugging. Shows how encapsulating JSON-RPC logic in a library streamlines application development despite added overhead."
+summary: "Examines the challenges of implementing data transfer over Arduino Serial, focusing on the trade-offs between raw communication and JSON-RPC. Highlights how memory limits, encoding overhead, and debugging requirements shape protocol design. Demonstrates that encapsulating JSON-RPC logic in a reusable library simplifies development and improves maintainability despite higher resource costs."
 ###
 tags: [project, serial-json-rpc-arduino, github]
 ---
-
-## TLDR
 
 {{< alert icon="circle-info" iconColor="#00ccff" >}}
 Note, that Arduino has one unexpected behavior: when connecting over the Serial interface, the board **resets** and completely loses its internal state. If using the Arduino IDE, this behavior can be observed by simply opening and closing the Serial Monitor. This is not a peculiarity of the Python serial library implementation but rather a built-in characteristic of the Arduino platform itself.
@@ -18,6 +16,8 @@ Note, that Arduino has one unexpected behavior: when connecting over the Serial 
 {{< alert icon="triangle-exclamation" iconColor="#ffcc00" >}}
 Note, that during this reset period, all board pins remain in an **uninitialized** state for about two seconds on an UNO R3. I described the details in the [Misconfigured Arduino Pins](/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset) post.
 {{< /alert >}}
+
+## TLDR
 
 While developing the [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer) project, I encountered a data transfer problem. On one hand, the Arduino IDE's Serial Console is not designed for working with binary data, so it’s necessary to implement a custom `xxd`-like formatter to analyze the read output. On the other hand, designing a protocol to send, for example, 256 KB of binary data over Serial for EEPROM writing is nontrivial.
 

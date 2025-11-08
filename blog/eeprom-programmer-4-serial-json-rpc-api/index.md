@@ -3,13 +3,11 @@ date: 2025-10-26
 ###
 title: "EEPROM Programmer: Implementing Serial JSON-RPC API"
 ###
-description: <short-TLDR>
-summary: <long-TLDR>
+description: "Presents the implementation of a JSON-RPC–based API for an Arduino-based EEPROM programmer, designed to separate protocol logic from application code. Validates the programmer’s accuracy by comparing its read and write results with those of the XGecu reference device."
+summary: "Describes the design and implementation of a JSON-RPC–based API for an Arduino EEPROM programmer, focusing on clean separation between protocol handling and application logic. Details the interaction between the Arduino firmware and the Python CLI used for control and data transfer. Concludes with validation against the XGecu reference programmer to ensure identical read and write behavior."
 ###
 tags: [eeprom-programmer, serial-json-rpc, arduino]
 ---
-
-## TLDR
 
 {{< alert icon="circle-info" iconColor="#00ccff" >}}
 Note, that Arduino has one unexpected behavior: when connecting over the Serial interface, the board **resets** and completely loses its internal state. If using the Arduino IDE, this behavior can be observed by simply opening and closing the Serial Monitor. This is not a peculiarity of the Python serial library implementation but rather a built-in characteristic of the Arduino platform itself.
@@ -22,6 +20,8 @@ Note, that during this reset period, all board pins remain in an **uninitialized
 {{< alert icon="fire" iconColor="#ff0000" >}}
 During read operations with the EEPROM Programmer, the chip's `!WE` pin **MUST** be connected to `VCC` using a jumper wire to disable the write mode. Otherwise, invoking the CLI may corrupt data on the chip due to Arduino's internal behavior.
 {{< /alert >}}
+
+## TLDR
 
 This post describes the **JSON-RPC API** implementation applied to the [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer) project. Details of the [Serial JSON-RPC library](https://github.com/inn-goose/serial-json-rpc-arduino) itself are covered in a separate post: [Project: Serial JSON-RPC for Arduino]((/blog/project-2-serial-json-rpc-arduino/)). The library abstracts protocol implementation details, enabling focus on business logic on both the programmer and client sides.
 

@@ -3,8 +3,8 @@ date: 2025-08-28
 ###
 title: "EEPROM Programmer: Implementing Initial R/W Interface for AT28C64"
 ###
-description: Arduino + 28C64 EEPROM. Simple API for byte reads/writes, breadboard with LCD/button, verified basics, noted waveform mismatch and retention quirks.
-summary: Practical walkthrough of 28C64 EEPROM on Arduino Giga. Pin mapping, minimal API for reads/writes, breadboard + LCD UI. Verified operation, observed write-edge vs datasheet mismatch, early-address retention issues, and plans for timing and READY/!BUSY testing.
+description: "Arduino + 28C64 EEPROM. Simple API for byte reads/writes, breadboard with LCD/button, verified basics, noted waveform mismatch and retention quirks."
+summary: "Practical walkthrough of 28C64 EEPROM on Arduino Giga. Pin mapping, minimal API for reads/writes, breadboard + LCD UI. Verified operation, observed write-edge vs datasheet mismatch, early-address retention issues, and plans for timing and READY/!BUSY testing."
 ###
 tags: [eeprom-programmer, arduino]
 ---
