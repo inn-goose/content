@@ -11,11 +11,11 @@ tags: [project, serial-json-rpc-arduino, github]
 
 ## TLDR
 
-{{< alert "circle-info" iconColor="#00cc00" >}}
+{{< alert icon="circle-info" iconColor="#00cc00" >}}
 Note, that Arduino has one unexpected behavior: when connecting over the Serial interface, the board **resets** and completely loses its internal state. If using the Arduino IDE, this behavior can be observed by simply opening and closing the Serial Monitor. This is not a peculiarity of the Python serial library implementation but rather a built-in characteristic of the Arduino platform itself.
 {{< /alert >}}
 
-{{< alert "triangle-exclamation" iconColor="#ffcc00" >}}
+{{< alert icon="triangle-exclamation" iconColor="#ffcc00" >}}
 Note, that during this reset period, all board pins remain in an **uninitialized** state for about two seconds on an UNO R3. I described the details in the [Misconfigured Arduino Pins](/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset) post.
 {{< /alert >}}
 
