@@ -11,7 +11,7 @@ tags: [eeprom-programmer, serial-json-rpc, arduino]
 
 ## TLDR
 
-{{< alert icon="circle-info" iconColor="#00cc00" >}}
+{{< alert icon="circle-info" iconColor="#00ccff" >}}
 Note, that Arduino has one unexpected behavior: when connecting over the Serial interface, the board **resets** and completely loses its internal state. If using the Arduino IDE, this behavior can be observed by simply opening and closing the Serial Monitor. This is not a peculiarity of the Python serial library implementation but rather a built-in characteristic of the Arduino platform itself.
 {{< /alert >}}
 
