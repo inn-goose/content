@@ -1,10 +1,10 @@
 ---
 date: 2025-09-06
 ###
-title: "How to Measure Arduino Performance with Oscilloscope"
+title: "Oscilloscope Analysis of Arduino Pin Toggle Performance"
 ###
-description: "Oscilloscope measurements show that Arduino boards execute simple pin toggles at very different speeds. Faster CPUs complete the operation much quicker, though efficiency per cycle varies by architecture."
-summary: "I compared several Arduino platforms by measuring the time for a basic digital pin toggle with an oscilloscope. Each board’s speed scales with its CPU clock, but the instruction overhead differs, some architectures need more cycles per operation, others fewer. Despite these differences, the trend is clear—higher clock speeds produce faster I/O, which directly improves tasks like EEPROM reads."
+description: "Oscilloscope measurements show how fast different Arduino boards execute a basic digital pin toggle. Results reveal large differences in cycle overhead between architectures, though performance scales predictably with CPU clock speed."
+summary: "Oscilloscope measurements quantify the execution time of a simple digital pin toggle across multiple Arduino boards. Results show that faster CPUs complete the operation in fewer microseconds, though instruction overhead varies by architecture. The data confirm a near-linear relationship between CPU clock speed and pin toggle performance."
 ###
 tags: [experiments, how-to, arduino, performance, oscilloscope]
 ---

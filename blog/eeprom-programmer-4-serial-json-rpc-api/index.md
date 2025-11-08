@@ -9,15 +9,15 @@ summary: "Describes the design and implementation of a JSON-RPC–based API for 
 tags: [eeprom-programmer, serial-json-rpc, arduino]
 ---
 
-{{< alert icon="circle-info" iconColor="#00ccff" >}}
+{{< alert "circle-info" >}}
 Note, that Arduino has one unexpected behavior: when connecting over the Serial interface, the board **resets** and completely loses its internal state. If using the Arduino IDE, this behavior can be observed by simply opening and closing the Serial Monitor. This is not a peculiarity of the Python serial library implementation but rather a built-in characteristic of the Arduino platform itself.
 {{< /alert >}}
 
-{{< alert icon="triangle-exclamation" iconColor="#ffcc00" >}}
+{{< alert "triangle-exclamation" >}}
 Note, that during this reset period, all board pins remain in an **uninitialized** state for about two seconds on an UNO R3. I described the details in the [Misconfigured Arduino Pins](/blog/experiments-2-misconfigured-arduino-pins/#how-arduino-behaves-during-the-reset) post.
 {{< /alert >}}
 
-{{< alert icon="fire" iconColor="#ff0000" >}}
+{{< alert "fire" >}}
 During read operations with the EEPROM Programmer, the chip's `!WE` pin **MUST** be connected to `VCC` using a jumper wire to disable the write mode. Otherwise, invoking the CLI may corrupt data on the chip due to Arduino's internal behavior.
 {{< /alert >}}
 
@@ -93,7 +93,7 @@ To read first 4 bits, send these commands one by one using Arduino IDE's *Serial
 
 The core business logic resides in the Programmer CLI component. This section describes the available functions and provides examples of using the programmer to read, write, and erase data on the EEPROM chip.
 
-{{< alert icon="circle-info" iconColor="#00ccff" >}}
+{{< alert "circle-info" >}}
 Note, that the EEPROM chip type must be specified, as each chip has a distinct pin configuration that affects operation. The `--device` argument defines the correct chip type for the session.
 {{< /alert >}}
 
@@ -159,7 +159,7 @@ result `xxd` after read:
 
 ## EEPROM Programmer vs XGecu Programmer
 
-{{< alert icon="fire" iconColor="#ff0000" >}}
+{{< alert "fire" >}}
 During read operations with the EEPROM Programmer, the chip's `!WE` pin **MUST** be connected to `VCC` using a jumper wire to disable the write mode. Otherwise, invoking the CLI may corrupt data on the chip due to Arduino's internal behavior.
 {{< /alert >}}
 
