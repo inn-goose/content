@@ -98,6 +98,10 @@ Check the [`eeprom-programmer's README`](https://github.com/inn-goose/eeprom-pro
 
 ### Read Operation
 
+{{< alert "fire" >}}
+During read operations with the EEPROM Programmer, the chip's `!WE` pin **MUST** be connected to `VCC` using a jumper wire to disable the write mode. Otherwise, invoking the CLI may corrupt data on the chip due to Arduino's internal behavior.
+{{< /alert >}}
+
 ```bash
 mkdir ./tmp
 
@@ -155,10 +159,6 @@ result `xxd` after read:
 
 
 ## EEPROM Programmer vs XGecu Programmer
-
-{{< alert "fire" >}}
-During read operations with the EEPROM Programmer, the chip's `!WE` pin **MUST** be connected to `VCC` using a jumper wire to disable the write mode. Otherwise, invoking the CLI may corrupt data on the chip due to Arduino's internal behavior.
-{{< /alert >}}
 
 This section uses the [`minipro`](https://formulae.brew.sh/formula/minipro) utility, which served as the basis for my EEPROM Programmer CLI interface, to compare the performance of the developed Programmer with the reference XGecu device.
 
