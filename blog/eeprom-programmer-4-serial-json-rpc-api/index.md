@@ -99,7 +99,7 @@ Check the [`eeprom-programmer's README`](https://github.com/inn-goose/eeprom-pro
 ### Read Operation
 
 {{< alert "fire" >}}
-During read operations with the EEPROM Programmer, the chip's `!WE` pin **MUST** be connected to `VCC` using a jumper wire to disable the write mode. Otherwise, invoking the CLI may corrupt data on the chip due to Arduino's internal behavior.
+During read operations with the EEPROM Programmer, the chip's `!WE` pin **MUST** be connected to `VCC` using a jumper wire to disable the write mode. Otherwise, invoking the CLI may corrupt data on the chip due to Arduino's internal behavior. [Details](/blog/eeprom-programmer-5-data-corruption/)
 {{< /alert >}}
 
 ```bash
