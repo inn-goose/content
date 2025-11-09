@@ -74,10 +74,6 @@ A small amount of noise remains, but it is negligible compared to the noise obse
 
 ## AT28C64 [Datasheet](https://ww1.microchip.com/downloads/en/devicedoc/doc0001h.pdf)
 
-`!WE` activates on LOW signal
-Input Low Voltage = 0.8 V max
-Input High Voltage = 2.0 V min
-
 ![AT28C64 Datasheet / Operating Modes](images/datasheet-operating-modes.png)
 
 The Operating Modes table in the EEPROM datasheet shows that the chip uses different voltage levels for read and write modes. The table defines these levels as V Input High and V Input Low, which correspond to the `HIGH` and `LOW` states on the respective waveforms.
