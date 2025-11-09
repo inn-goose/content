@@ -105,7 +105,7 @@ During read operations with the EEPROM Programmer, the chip's `!WE` pin **MUST**
 ```bash
 mkdir ./tmp
 
-PYTHONPATH=./eeprom_programmer_cli/:$PYTHONPATH python3 ./eeprom_programmer_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --read tmp/dump_eeprom.bin
+./eeprom_programmer_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --read tmp/dump_eeprom.bin
 
 xxd tmp/dump_eeprom.bin
 ```
@@ -122,7 +122,7 @@ xxd tmp/dump_eeprom.bin
 ### Write Operation
 
 ```bash
-PYTHONPATH=./eeprom_programmer_cli/:$PYTHONPATH python3 ./eeprom_programmer_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --write tmp/zenith_zt1_eeprom.bin
+./eeprom_programmer_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --write tmp/zenith_zt1_eeprom.bin
 ```
 
 result `xxd` after read:
@@ -144,7 +144,7 @@ result `xxd` after read:
 ### Erase Operation
 
 ```bash
-PYTHONPATH=./eeprom_programmer_cli/:$PYTHONPATH python3 ./eeprom_programmer_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --erase
+./eeprom_programmer_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --erase
 ```
 
 result `xxd` after read:
@@ -174,11 +174,11 @@ minipro --device AT28C64 -s -u --write tmp/zenith_zt1_eeprom.bin
 minipro --device AT28C64 -u --read tmp/dump_xgecu.bin
 
 # write the zenith dump to the EEPROM using EEPROM Programmer
-PYTHONPATH=./eeprom_programmer_cli/:$PYTHONPATH python3 ./eeprom_programmer_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --write tmp/zenith_zt1_eeprom.bin
+./eeprom_programmer_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --write tmp/zenith_zt1_eeprom.bin
 
 # read the data from the EEPROM using EEPROM Programmer
 # CAUTION: USE !WE and VCC jumper wire
-PYTHONPATH=./eeprom_programmer_cli/:$PYTHONPATH python3 ./eeprom_programmer_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --read tmp/dump_eeprom.bin
+./eeprom_programmer_cli/cli.py /dev/cu.usbmodem2101 -p AT28C64 --read tmp/dump_eeprom.bin
 
 # convert to HEX
 xxd tmp/dump_xgecu.bin > tmp/dump_xgecu.hex
