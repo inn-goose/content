@@ -14,32 +14,40 @@ showAuthor: true
 showAuthorBottom: true
 ---
 
-## Oscilloscopes
+## Fnirsi DPS-150 Adjustable DC Power Supply
 
-### FNIRSI DSO152
+An essential tool for checking the forward voltage of a diode or transistor, limiting current in a circuit, or measuring the power consumption of a breadboard computer. After using this device, all battery-based or plug-in power supply solutions start to feel like a thing of the past.
 
-![FNIRSI DSO152](images/fnirsi-dso152.jpeg)
+![Fnirsi DPS-150 / Breadboard Computer](images/fnirsi-dps150-breadboard.png)
 
-| Bandwidth | Sampling Rate | Min Time Div |
-| :--: | :-: | :-: |
-| 200 KHz | 2.5 MSa/s | 10 μs |
 
-[Manufacturer description](https://www.fnirsi.com/products/dso-152?variant=46705204134106)
+## Fnirsi DSO-152 1CH Ocsilloscope
 
-A small single-channel oscilloscope that introduced me to the world of waveforms. It's well suited for measuring simple processes such as capacitor discharge or a signal from a 555 timer. But the limitations of a single channel become apparent quickly.
+This oscilloscope is a solid entry-level option. It allows observation of capacitor discharge, contact bounce, and Arduino PWM behavior. One channel is sufficient for most basic electronics experiments involving capacitors, LEDs, and relays. But becomes limiting when analyzing circuits such as transistor pulse generators or 555 timers.
 
-Its bandwidth is sufficient to measure the fastest operations on the UNO R3. Beyond that, limitations start to appear.
+![Fnirsi DSO-152 / Capacitor](images/fnirsi-dso152-capacitor.png)
 
-### OWON HDS242
+![Fnirsi DSO-152 / Arduino PWM](images/fnirsi-dso152-arduino.png)
 
-![OWON HDS242](images/owon-hds242.jpeg)
 
-| Bandwidth | Sampling Rate | Min Time Div |
-| :--: | :-: | :-: |
-| 40 MHz | 250 MSa/s | 5 ns |
+## OWON HDS-242 2CH Ocsilloscope
 
-[Product datasheet](https://files.owon.com.cn/specifications/HDS200.pdf)
+This oscilloscope is a real find. It takes up almost no space, has two channels—finally allowing observation of the 555 timer and capacitor behavior as a whole—and provides enough bandwidth to measure PWM on an Arduino Giga. It includes all the essential functions for exploring the world of integrated circuits, such as frequency and amplitude measurement. Its limitations became noticeable only when debugging EEPROM IC behavior, which involves three management pins along with separate address and data buses.
 
-A very convenient two-channel oscilloscope with all the necessary features for advanced measurements. For example, it allows measuring the CPU clock speed on the `XTAL2` pin of an ATmega328P and correlating it with the duration of a `digitalWrite` operation. With some skill, it can even serve as a replacement for a four-channel oscilloscope.
+![OWON HDS-242 / 555 Timer](images/owon-hds242-555-timer.png)
 
-Its bandwidth is sufficient to measure the fastest digital operations on the GIGA.
+![OWON HDS-242 / Arduino](images/owon-hds242-arduino.png)
+
+
+## Rigol DHO-804 4CH Ocsilloscope
+
+For my level of research, this is a highly professional apparatus. It has countless controls and offers far more functionality than I will likely ever need. With its help, I was finally able to locate the issue in my EEPROM Programmer using three probes simultaneously. If a full laboratory setup were available, this would probably be the only oscilloscope in use. For now, however, the OWON is still used for simpler tasks—it starts up faster and provides the same essential functionality.
+
+![Rigol DHO-804 / Arduino](images/rigol-dho804-arduino.png)
+
+
+## K&H LP-2800 Logic Probe
+
+A surprisingly capable device that shows exactly what’s happening at the digital signal level. It clearly distinguishes HIGH, LOW, and data flow states. The only thing it’s missing is an audible signal. There’s enough room in the case for it, and I’ve already built a small 555-timer buzzer—just haven’t attached it yet.
+
+![K&H LP-2800 / Arduino](images/knh-lp2800-arduino.png)
