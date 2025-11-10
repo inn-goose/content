@@ -18,6 +18,37 @@ So I decided to measure the performance of different Arduino microcontroller mod
 The source code: [sketch.ino](sketch/sketch.ino)
 
 
+## Oscilloscopes
+
+### FNIRSI DSO-152
+
+[Manufacturer description](https://www.fnirsi.com/products/dso-152?variant=46705204134106)
+
+| Bandwidth | Sampling Rate | Min Time Div |
+| :--: | :-: | :-: |
+| 200 KHz | 2.5 MSa/s | 10 μs |
+
+![FNIRSI DSO-152](images/fnirsi-dso152.png)
+
+A small single-channel oscilloscope that introduced me to the world of waveforms. It's well suited for measuring simple processes such as capacitor discharge or a signal from a 555 timer. But the limitations of a single channel become apparent quickly.
+
+Its bandwidth is sufficient to measure the fastest operations on the UNO R3. Beyond that, limitations start to appear.
+
+### OWON HDS-242
+
+[Product datasheet](https://files.owon.com.cn/specifications/HDS200.pdf)
+
+| Bandwidth | Sampling Rate | Min Time Div |
+| :--: | :-: | :-: |
+| 40 MHz | 250 MSa/s | 5 ns |
+
+![OWON HDS-242](images/owon-hds242.png)
+
+A very convenient two-channel oscilloscope with all the necessary features for advanced measurements. For example, it allows measuring the CPU clock speed on the `XTAL2` pin of an ATmega328P and correlating it with the duration of a `digitalWrite` operation. With some skill, it can even serve as a replacement for a four-channel oscilloscope.
+
+Its bandwidth is sufficient to measure the fastest digital operations on the GIGA.
+
+
 ## CPU Clock Measurement
 
 Connecting to `XTAL2` (pin `10`, [pinout](images/ATmega328P%20Pinout.png)) provides the CPU clock signal, as described in the [ATmega328P Datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf) and visible on the oscilloscope screen as a stable sine wave as well.
