@@ -157,10 +157,10 @@ The chip has two `NC` pins, which are configured as `INPUT_PULLUP` by default. O
 
 The chip is packaged in a DIP24 form factor, despite the “28” designation in its name.
 
-| Arduino | 1B Read AVG (ms) | Full Memory Read (sec) | 1B Write AVG (ms) | Full Memory Write (sec) |
+| Arduino | 1B Read AVG (µs) | Full Memory Read (sec) | 1B Write AVG (µs) | Full Memory Write (sec) |
 | -- | :--: | :--: | :--: | :--: |
-| Mega, 16 MHz | 450 ms | 1.4 sec | 950 ms | 1.8 sec |
-| Due, 84 MHz | 120 ms | 0.9 sec | 600 ms | 1.4 sec |
+| Mega, 16 MHz | 450 | 1.4 | 950 | 1.8 |
+| Due, 84 MHz | 120 | 0.9 | 600 | 1.4 |
 
 The total time required to program the entire chip does not correlate directly with the time to 1B write, due to overhead from the JSON-based Serial protocol and measurement inaccuracies, as the per-byte write time is calculated as an AVG.
 
@@ -170,10 +170,10 @@ The total time required to program the entire chip does not correlate directly w
 
 This is a fairly popular chip among enthusiasts. It is commonly recommended as a replacement for the AT28C04, although it is approximately four times slower in write operations. Read performance is identical for both chips. This chip also uses a DIP24 package, like the 4K variant, and all pins are utilized to provide 11 address bits on the address bus.
 
-| Arduino | 1B Read AVG (ms) | Full Memory Read (sec) | 1B Write AVG (ms) | Full Memory Write (sec) |
+| Arduino | 1B Read AVG (µs) | Full Memory Read (sec) | 1B Write AVG (µs) | Full Memory Write (sec) |
 | -- | :--: | :--: | :--: | :--: |
-| Mega, 16 MHz | 450 ms | 5.5 sec | 3800 ms | 14 sec |
-| Due, 84 MHz | 120 ms | 3.6 sec | 3400 ms | 11 sec |
+| Mega, 16 MHz | 450 | 5.5 | 3800 | 14 |
+| Due, 84 MHz | 120 | 3.6 | 3400 | 11 |
 
 ### AT28C64 @ DIP28
 
@@ -185,10 +185,10 @@ Implementation details of this mechanism are described in [Using Data Polling vs
 
 Apparently, the use of the `RDY/!BUSY` mechanism reduces the write time from approximately 3800 µs on the 16K chip to about 850 µs on the 64K chip.
 
-| Arduino | 1B Read AVG (ms) | Full Memory Read (sec) | 1B Write AVG (ms) | Full Memory Write (sec) |
+| Arduino | 1B Read AVG (µs) | Full Memory Read (sec) | 1B Write AVG (µs) | Full Memory Write (sec) |
 | -- | :--: | :--: | :--: | :--: |
-| Mega, 16 MHz | 420 ms | 21 sec | 850 ms | 28 sec |
-| Due, 84 MHz | 120 ms | 15 sec | 640 ms | 22 sec |
+| Mega, 16 MHz | 420 | 21 | 850 | 28 |
+| Due, 84 MHz | 120 | 15 | 640 | 22 |
 
 
 ### AT28C256 @ DIP28
@@ -199,6 +199,8 @@ This chip introduces page-write support, which uses a 64-byte internal cache and
 
 However, implementing this mechanism on Arduino MEGA is not feasible. Due to the microcontroller’s clock frequency, the combined sequence of driving the address bus and data bus exceeds 400 µs, while the datasheet specifies a maximum of 150 µs for this operation. On DUE, the same sequence takes approximately 110 µs, which makes page-write mode viable on that platform.
 
+Implementation details of the page-write mode are described in the [AT28C256's Page Write Operation](/blog/eeprom-programmer-7-page-write/) post.
+
 file: `./eeprom_programmer/eeprom_programmer_lib.h`
 ```
     case ChipType::AT28C256:
@@ -208,10 +210,10 @@ file: `./eeprom_programmer/eeprom_programmer_lib.h`
       break;
 ```
 
-| Arduino | 1B Read AVG (ms) | Full Memory Read (sec) | 1B Write AVG (ms) | Full Memory Write (sec) |
+| Arduino | 1B Read AVG (µs) | Full Memory Read (sec) | 1B Write AVG (µs) | Full Memory Write (sec) |
 | -- | :--: | :--: | :--: | :--: | :--: |
-| MEGA, 16 MHz | 490 ms | 84 sec | 6400 ms | 305 sec |
-| DUE, 84 MHz | 125 ms | 56 sec | 210/6000* ms | 85/255* sec |
+| MEGA, 16 MHz | 490 | 84 | 6400 | 305 |
+| DUE, 84 MHz | 125 | 56 | 210/6000* | 85/255* |
 
 (*) AT28C256 Write time in page mode and byte-mode; page mode is 3 times faster for chip and 30 times faster for byte
 
