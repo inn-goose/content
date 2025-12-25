@@ -22,13 +22,13 @@ The source code: [sketch.ino](sketch/sketch.ino)
 
 ### FNIRSI DSO-152
 
-[Manufacturer description](https://www.fnirsi.com/products/dso-152?variant=46705204134106)
+[Manufacturer Description](https://www.fnirsi.com/products/dso-152?variant=46705204134106)
 
 | Bandwidth | Sampling Rate | Min Time Div |
 | :--: | :-: | :-: |
 | 200 KHz | 2.5 MSa/s | 10 μs |
 
-![FNIRSI DSO-152](images/fnirsi-dso152.png)
+![FNIRSI DSO-152](images/oscilloscopes/fnirsi-dso152.png)
 
 A small single-channel oscilloscope that introduced me to the world of waveforms. It's well suited for measuring simple processes such as capacitor discharge or a signal from a 555 timer. But the limitations of a single channel become apparent quickly.
 
@@ -36,17 +36,31 @@ Its bandwidth is sufficient to measure the fastest operations on the UNO R3. Bey
 
 ### OWON HDS-242
 
-[Product datasheet](https://files.owon.com.cn/specifications/HDS200.pdf)
+[Product Datasheet](https://files.owon.com.cn/specifications/HDS200.pdf)
 
 | Bandwidth | Sampling Rate | Min Time Div |
 | :--: | :-: | :-: |
 | 40 MHz | 250 MSa/s | 5 ns |
 
-![OWON HDS-242](images/owon-hds242.png)
+![OWON HDS-242](images/oscilloscopes/owon-hds242.png)
 
 A very convenient two-channel oscilloscope with all the necessary features for advanced measurements. For example, it allows measuring the CPU clock speed on the `XTAL2` pin of an ATmega328P and correlating it with the duration of a `digitalWrite` operation. With some skill, it can even serve as a replacement for a four-channel oscilloscope.
 
 Its bandwidth is sufficient to measure the fastest digital operations on the GIGA.
+
+### RIGOL DHO-804
+
+[Product Datasheet](https://www.rigol.com/dam/global/downloads/brochures/en/data-sheet/oscilloscopes/DHO800_DataSheet_EN.pdf)
+
+| Bandwidth | Sampling Rate | Min Time Div |
+| :--: | :-: | :-: |
+| 70 MHz | 1.25 GSa/s | 5 ns |
+
+![RIGOL DHO-804](images/oscilloscopes/rigol-dho804.png)
+
+This is the first full-size oscilloscope I have worked with. It does not impose the kinds of limitations present in my other oscilloscopes, with the sole exception of lacking true portability. Overall, it is an excellent piece of equipment.
+
+This oscilloscope provides built-in functionality for measuring toggle-cycle length and frequency. These measurements will be corroborated later in the article with screenshots.
 
 
 ## CPU Clock Measurement
@@ -81,19 +95,11 @@ The most common Arduino platform. Serves as the baseline for my calculations.
 | :--: | :--: | :--: | :--: | :--: |
 | 16 MHz | 62.5 ns | 94 kHz | 10,600 ns | 170 |
 
-$\frac{1 \text{ sec}}{\text{CPU Clock in Hz}} = \text{CPU Cycle Length in sec}$
-
-$\frac{1 \text{ sec}}{16,000,000 \text{ Hz}} = 62.5  \text{ ns}$
-
 ### "Fast" `12` Pin
 
 The speed and frequency of the pin toggle operation are measured. CPU frequency was measured only for the UNO R3, other platforms operate at frequencies beyond the measurement capabilities of my oscilloscopes. The measurement is performed with two oscilloscopes simultaneously to compare results.
 
 An interesting platform feature that divides pins into "fast" and "slow". My measurements show a 1.5x regression in frequency between the "fast" `12` pin and the "slow" `5` pin.
-
-$\frac{1 \text{ sec}}{\text{Operation Length in sec}} = \text{Operation Frequency in Hz}$
-
-$\frac{1 \text{ sec}}{10,600 \text{ ns}} = 94 \text{ kHz}$
 
 The frequency of the "fast" pin toggle operation is approximately 94 kHz.
 
@@ -106,6 +112,10 @@ The frequency of the "fast" pin toggle operation is approximately 94 kHz.
 **OWON HDS242**: A clear square waveform. This instrument is designed for such frequencies.
 
 ![UNO R3 Fast Pin OWON HDS242](images/uno-r3-fast-pin-owon-hds242.jpeg)
+
+**RIGOL DHO804**: The measurements confirm the results previously obtained with other oscilloscopes: a frequency of 94 kHz and a toggle-cycle period of 10.6 µs.
+
+![UNO R3 Fast Pin RIGOL DHO804](images/uno-r3-fast-pin-rigol-dho804.png)
 
 ### "Slow" `5` Pin
 
@@ -120,6 +130,10 @@ The frequency of a "slow" pin toggle operation is approximately 65 kHz.
 **OWON HDS242**: same as the "fast" pin measurement
 
 ![UNO R3 Slow Pin OWON HDS242](images/uno-r3-slow-pin-owon-hds242.jpeg)
+
+**RIGOL DHO804**: I was unable to confirm the slow/fast pins hypothesis; the signal speed is identical to that observed on pin 12.
+
+![UNO R3 Slow Pin RIGOL DHO804](images/uno-r3-slow-pin-rigol-dho804.png)
 
 
 ## UNO R4
@@ -145,6 +159,10 @@ Connecting to pins `5` and `12` yields the same frequency value, suggesting that
 **OWON HDS242**: The oscilloscope’s bandwidth allows measuring operations at these speeds without issues, producing a clear waveform. The 40 MHz bandwidth theoretically allows measuring the CPU clock, if measure the right pin of RA4M1 CPU.
 
 ![UNO R4 OWON HDS242](images/uno-r4-owon-hds242.jpeg)
+
+**RIGOL DHO804**: The measurements are consistent with those from the other oscilloscopes — 225 kHz and a 4.45 µs for one toggle cycle.
+
+![UNO R4 RIGOL DHO804](images/uno-r4-rigol-dho804.png)
 
 
 ## NANO ESP32
@@ -187,6 +205,10 @@ The frequency of the pin toggle operation is approximately 2.15 MHz. Making the 
 **OWON HDS242**: Measuring the execution time of a single operation approaches the limit of the horizontal display, but shows the reasonable waveform. The voltage difference is less than 5 volts due to signal bounce.
 
 ![GIGA R1 OWON HDS242](images/giga-r1-owon-hds242.jpeg)
+
+**RIGOL DHO804**: The oscilloscope’s sensitivity allows the horizontal scale to be expanded further. The waveform disturbances observed at the beginning of the toggle events are more likely attributable to "contact bounce", as the ends of the transitions exhibit a very clean square shape. The measurements are consistent with those obtained using other oscilloscopes — 2.14 MHz and 480 ns per toggle cycle.
+
+![GIGA R1 RIGOL DHO804](images/giga-r1-rigol-dho804.png)
 
 
 ## Conclusion
