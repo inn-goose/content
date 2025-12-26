@@ -6,7 +6,7 @@ title: "Project: Serial JSON-RPC for Arduino"
 description: "Explores data transfer challenges on Arduino Serial, comparing raw and JSON-RPC approaches in scalability, memory usage, and debugging. Shows how encapsulating JSON-RPC logic in a library streamlines application development despite added overhead."
 summary: "Examines the challenges of implementing data transfer over Arduino Serial, focusing on the trade-offs between raw communication and JSON-RPC. Highlights how memory limits, encoding overhead, and debugging requirements shape protocol design. Demonstrates that encapsulating JSON-RPC logic in a reusable library simplifies development and improves maintainability despite higher resource costs."
 ###
-tags: [project, serial-json-rpc-arduino, github]
+tags: [project, serial-json-rpc, arduino, github]
 ---
 
 {{< alert "triangle-exclamation" >}}

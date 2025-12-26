@@ -84,12 +84,12 @@ minipro --device AT28C64 -s -u --write test_bin/64_the_red_migration_AT28C64_ff.
 minipro --device AT28C256 -s -u --write test_bin/256_the_geometry_of_flight_AT28C256_ff.bin
 ```
 
-| Chip | Size | Read (sec) | Write (sec) |
+| Chip | Size | Full Memory Read (sec) | Full Memory Write (sec) |
 | -- | :--: | :--: | :--: |
-| AT28C04 | 512 x 8 | 0.00 sec | 0.53 sec |
-| AT28C16 | 2K x 8 | 0.01 sec | 2.10 sec |
-| AT28C64 | 8K x 8 | 0.06 sec | 8.46 sec |
-| AT28C256 | 32K x 8 | 0.28 sec | 5.56 sec |
+| AT28C04 | 512 x 8 | 0.00 | 0.53 |
+| AT28C16 | 2K x 8 | 0.01 | 2.10 |
+| AT28C64 | 8K x 8 | 0.06 | 8.46 |
+| AT28C256 | 32K x 8 | 0.28 | 5.56 |
 
 Note that the write time for the 256K chip is nearly half that of the 64K chip, since the 256K chip supports page-write mode with the use of an internal cache, which significantly accelerates the process. The same approach is implemented in the EEPROM Programmer and is demonstrated later in the post. Read speed increases linearly, as no specialized mechanisms for accelerating read operations are employed.
 
@@ -124,21 +124,21 @@ It is worth noting separately that, despite the significant improvement in read 
 
 ### Arduino MEGA, 16 MHz
 
-| Chip | Size | Read (sec) | Write (sec) |
+| Chip | Size | Full Memory Read (sec) | Full Memory Write (sec) |
 | -- | :--: | :--: | :--: |
-| AT28C04 | 512 x 8 | 1.4 sec | 1.8 sec |
-| AT28C16 | 2K x 8 | 5.5 sec | 14 sec |
-| AT28C64 | 8K x 8 | 21 sec | 28 sec |
-| AT28C256 | 32K x 8 | 84 sec | 305 sec |
+| AT28C04 | 512 x 8 | 1.4 | 1.8 |
+| AT28C16 | 2K x 8 | 5.5 | 14 |
+| AT28C64 | 8K x 8 | 21 | 28 |
+| AT28C256 | 32K x 8 | 84 | 305 |
 
 ### Arduino DUE, 84 MHz
 
-| Chip | Size | Read (sec) | Write (sec) |
+| Chip | Size | Full Memory Read (sec) | Full Memory Write (sec) |
 | -- | :--: | :--: | :--: |
-| AT28C04 | 512 x 8 | 0.9 sec | 1.4 sec |
-| AT28C16 | 2K x 8 | 3.6 sec | 11 sec |
-| AT28C64 | 8K x 8 | 15 sec | 22 sec |
-| AT28C256 | 32K x 8 | 56 sec | 85/255* sec |
+| AT28C04 | 512 x 8 | 0.9 | 1.4 |
+| AT28C16 | 2K x 8 | 3.6 | 11 |
+| AT28C64 | 8K x 8 | 15 | 22 |
+| AT28C256 | 32K x 8 | 56 | 85/255* |
 
 (*) AT28C256 Write time in page mode and byte-mode; page mode is 3 times faster
 
