@@ -27,8 +27,6 @@ At the end of the post, a list of chips is provided for which support was planne
 
 It should be noted that both read and write speeds are orders of magnitude lower than when using dedicated commercial programmers such as XGecu.
 
-![All EEPROM Chips](images/all-eeprom-chips.png)
-
 
 ## How to Connect
 
@@ -226,3 +224,5 @@ file: `./eeprom_programmer/eeprom_programmer_lib.h`
 
 There are several chips that could not be programmed using the existing logic. The Intel D2815-4 could be read successfully, but write operations did not work. In addition, a datasheet for this chip could not be located. The SST 29EE512, on the other hand, uses a DIP32 package, which is not supported by the current hardware layout.
 If support for these chips is of interest, leave a comment in the [discussion section](https://github.com/inn-goose/eeprom-programmer/discussions) of the [EEPROM Programmer on GitHub](https://github.com/inn-goose/eeprom-programmer), and this will be investigated further.
+
+![All EEPROM Chips](images/all-eeprom-chips.png)
