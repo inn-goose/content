@@ -6,7 +6,7 @@ title: "DAC SPI: How to Make a Positive/Negative Power Supply"
 description: "Multiple ±5 V power supply approaches were tested; simple regulator-based solutions provided the best balance of stability and complexity. More elaborate setups offered no practical advantage."
 summary: "Several methods for generating ±5 V rails were evaluated, ranging from dual wall warts to regulator-based and buck-boost solutions, with stability, noise, and grounding complexity as the main trade-offs. The most practical approach for the DAC setup proved to be regulator-based supplies, while more complex configurations offered little benefit and higher power consumption."
 ###
-tags: [dac-spi, power-source, oscilloscope]
+tags: [dac-spi, power-supply, oscilloscope]
 ---
 
 ## TLDR
