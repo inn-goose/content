@@ -7,6 +7,8 @@ description: "Multiple ±5 V power supply approaches were tested; simple regulat
 summary: "Several methods for generating ±5 V rails were evaluated, ranging from dual wall warts to regulator-based and buck-boost solutions, with stability, noise, and grounding complexity as the main trade-offs. The most practical approach for the DAC setup proved to be regulator-based supplies, while more complex configurations offered little benefit and higher power consumption."
 ###
 tags: [dac-spi, power-supply, oscilloscope]
+series: ["DAC SPI"]
+series_order: 1
 ---
 
 ## TLDR

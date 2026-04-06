@@ -3,10 +3,12 @@ date: 2025-10-26
 ###
 title: "EEPROM Programmer: Implementing Serial JSON-RPC API"
 ###
-description: "Presents the implementation of a JSON-RPC–based API for an Arduino-based EEPROM programmer, designed to separate protocol logic from application code. Validates the programmer’s accuracy by comparing its read and write results with those of the XGecu reference device."
-summary: "Describes the design and implementation of a JSON-RPC–based API for an Arduino EEPROM programmer, focusing on clean separation between protocol handling and application logic. Details the interaction between the Arduino firmware and the Python CLI used for control and data transfer. Concludes with validation against the XGecu reference programmer to ensure identical read and write behavior."
+description: "A JSON-RPC API for the Arduino EEPROM programmer, separating protocol logic from application code. Read and write results match the XGecu reference device."
+summary: "A JSON-RPC API is implemented for the Arduino EEPROM programmer, with clean separation between protocol handling and application logic. The Arduino firmware exposes basic read/write primitives, while a Python CLI handles the business logic. Validation against the XGecu reference programmer confirms identical read and write behavior."
 ###
 tags: [eeprom-programmer, serial-json-rpc, arduino]
+series: ["EEPROM Programmer"]
+series_order: 4
 ---
 
 {{< alert "triangle-exclamation" >}}

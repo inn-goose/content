@@ -3,10 +3,12 @@ date: 2025-12-25
 ###
 title: "EEPROM Programmer: Supported Chips"
 ###
-description: "An Arduino-based EEPROM Programmer supporting AT28C devices is evaluated, highlighting wiring, performance, and hardware constraints."
-summary: "An Arduino-based EEPROM Programmer supporting AT28C devices is evaluated, highlighting wiring, performance, and hardware constraints. Advanced features like RDY/BUSY polling and page-write mode enable major speedups on DUE but are not viable on MEGA."
+description: "The EEPROM Programmer supports AT28C04, AT28C16, AT28C64, and AT28C256. Wiring, performance, and platform constraints for MEGA and DUE."
+summary: "The EEPROM Programmer now supports all available AT28C family chips: AT28C04, AT28C16, AT28C64, and AT28C256. Chip-specific features like RDY/BUSY polling and page-write mode enable major speedups on Arduino DUE but are not viable on MEGA. Performance measurements and wiring details are provided for each chip."
 ###
 tags: [eeprom-programmer, performance, arduino]
+series: ["EEPROM Programmer"]
+series_order: 8
 ---
 
 {{< alert "fire" >}}

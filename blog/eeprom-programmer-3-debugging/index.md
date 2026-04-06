@@ -7,6 +7,8 @@ description: "Corrupted EEPROM reads were traced not to wiring noise but to unin
 summary: "The EEPROM Programmer initially returned corrupted data. I tested wiring, bit ordering, and bus isolation, suspecting noise on the data lines. Oscilloscope traces suggested interference, but the root cause was software, several Arduino address pins were never initialized. These floating pins produced unstable signals that mimicked noise. After proper initialization, the API produced stable results identical to a reference programmer."
 ###
 tags: [eeprom-programmer, debugging, data-corruption, oscilloscope, arduino]
+series: ["EEPROM Programmer"]
+series_order: 3
 ---
 
 ## TLDR
@@ -182,7 +184,7 @@ Since the noise persists with the new wiring, I decided to test another hypothes
 
 My next assumption is that the crossing of address bus wires and data bus wires may introduce noise into the data bus. Since the data is corrupted only for specific addresses, I suspect that some address bus wires are causing interference. To test this hypothesis, I connected the data bus to the Arduino, while connecting the address bus directly to the `5V`/`GND` rails of the breadboard, isolating the Arduino's influence on the address bus.
 
-[Sketch]() with the source code.
+The source code for this experiment is available in the project repository.
 
 This produced a result. The address that previously showed noise on the address pins displayed clean values for both logical 0 and 1. The serial console showed the same value consistently, indicating that the data is read reliably and no noise is introduced.
 

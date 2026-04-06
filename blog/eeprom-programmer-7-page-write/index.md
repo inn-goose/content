@@ -7,6 +7,8 @@ description: "AT28C256 page writes are timing-critical: they fail on Arduino MEG
 summary: "Page-write support in the AT28C256 can significantly speed up programming, but it depends on tight timing. The Arduino MEGA is too slow to use this feature reliably, while faster platforms like the Arduino DUE make it practical and stable."
 ###
 tags: [eeprom-programmer, datasheet, performance, arduino]
+series: ["EEPROM Programmer"]
+series_order: 7
 ---
 
 ## TLDR

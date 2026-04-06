@@ -3,8 +3,8 @@ date: 2025-10-18
 ###
 title: "Project: Serial JSON-RPC for Arduino"
 ###
-description: "Explores data transfer challenges on Arduino Serial, comparing raw and JSON-RPC approaches in scalability, memory usage, and debugging. Shows how encapsulating JSON-RPC logic in a library streamlines application development despite added overhead."
-summary: "Examines the challenges of implementing data transfer over Arduino Serial, focusing on the trade-offs between raw communication and JSON-RPC. Highlights how memory limits, encoding overhead, and debugging requirements shape protocol design. Demonstrates that encapsulating JSON-RPC logic in a reusable library simplifies development and improves maintainability despite higher resource costs."
+description: "Data transfer challenges on Arduino Serial, comparing raw and JSON-RPC approaches in scalability, memory usage, and debugging."
+summary: "A reusable JSON-RPC library for Arduino Serial communication. Memory limits, encoding overhead, and debugging requirements shape the protocol design. Encapsulating JSON-RPC logic in a library simplifies development and improves maintainability despite higher resource costs."
 ###
 tags: [project, serial-json-rpc, arduino, github]
 ---
@@ -20,9 +20,9 @@ During this reset period, all board pins remain in an **uninitialized** state fo
 
 ## TLDR
 
-While developing the [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer) project, I encountered a data transfer problem. On one hand, the Arduino IDE's Serial Console is not designed for working with binary data, so it’s necessary to implement a custom `xxd`-like formatter to analyze the read output. On the other hand, designing a protocol to send, for example, 256 KB of binary data over Serial for EEPROM writing is nontrivial.
+While developing the [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer) project, I encountered a data transfer problem. On one hand, the Arduino IDE's Serial Console is not designed for working with binary data, so it is necessary to implement a custom `xxd`-like formatter to analyze the read output. On the other hand, designing a protocol to send, for example, 256 KB of binary data over Serial for EEPROM writing is nontrivial.
 
-Existing tools such as `stty` or a simple Python CLI can be used, but they don’t solve the problem of unification. Each time, it’s necessary to define a new protocol format and implement command handlers both on the board and on the CLI side. To address this, I decided to implement the [JSON-RPC](https://www.jsonrpc.org/specification) protocol for Arduino and reuse it in current and future projects. The implementation hides all encoding/decoding and serial-transfer details, allowing the focus to remain on RPC function logic.
+Existing tools such as `stty` or a simple Python CLI can be used, but they do not solve the problem of unification. Each time, it is necessary to define a new protocol format and implement command handlers both on the board and on the CLI side. To address this, I decided to implement the [JSON-RPC](https://www.jsonrpc.org/specification) protocol for Arduino and reuse it in current and future projects. The implementation hides all encoding/decoding and serial-transfer details, allowing the focus to remain on RPC function logic.
 
 I built two libraries: one for the Python CLI and another for Arduino. These libraries are not intended to be distributed via `pip` or "Arduino Library Manager". The [Serial JSON-RPC for Arduino](https://github.com/inn-goose/serial-json-rpc-arduino) project is a ready-to-use template that can be copied directly into any project, integrated as described in the template's [`README.md`](https://github.com/inn-goose/serial-json-rpc-arduino/blob/main/README.md), and immediately provide RPC functionality for "Computer-to-Arduino" Serial communication.
 
@@ -31,7 +31,7 @@ I built two libraries: one for the Python CLI and another for Arduino. These lib
 
 The main limitation in implementing a serial interface lies in the restricted RAM available on the Arduino board. Because serial communication typically uses `UTF-8` encoding, each 8-bit value requires at least two `HEX` characters, along with optional separators for readability. This design preserves debuggability by keeping transmitted data human-readable, yet the additional formatting introduces significant overhead. While certain optimizations can improve the efficiency of binary transfer, they do not eliminate the underlying constraint.
 
-Transmitting 256 kilobytes of data at once for an EEPROM write is infeasible, as this exceeds the total memory capacity of the Arduino Uno. Large data transfers therefore require segmentation into pages, with each page transmitted as a separate data block. For instance, sending page 8 with a page size of 4 bytes might appear in raw serial form as:
+Transmitting 256 kilobytes of data at once for an EEPROM write is infeasible, as this exceeds the total memory capacity of the Arduino UNO. Large data transfers therefore require segmentation into pages, with each page transmitted as a separate data block. For instance, sending page 8 with a page size of 4 bytes might appear in raw serial form as:
 
 ```bash
 8 4 FF FF FF FF

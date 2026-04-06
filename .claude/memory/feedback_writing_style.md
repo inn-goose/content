@@ -25,3 +25,11 @@ Do not add per-post preambles (project mission statements, bullet lists of learn
 **How to apply:** When writing new posts or reviewing existing ones.
 
 Use "bits" vs "bytes" vs "Kbit" precisely — do not write "64 bits" when meaning "64 bytes", or "256K" when meaning "256 Kbit".
+
+Frontmatter `description` should be under 160 characters for SEO (maps to `<meta name="description">`). Use neutral/direct voice, not third-person passive ("Explores", "Examines", "Presents").
+
+Frontmatter `description` and `summary` should not be identical — `description` is for SEO meta tags (short), `summary` is for listing pages (can be longer and more detailed).
+
+Use Blowfish `series` and `series_order` frontmatter for multi-post series (e.g., EEPROM Programmer, DAC SPI). This enables built-in series navigation and creates a series listing page.
+
+Project pages use the `project` tag (accessible at `/tags/project/`), not a separate `projects/` content section. The `projects/` section was removed.

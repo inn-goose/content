@@ -3,10 +3,12 @@ date: 2025-11-05
 ###
 title: "EEPROM Programmer: Using Data Polling vs RDY/!BUSY Pin for Write Operations"
 ###
-description: "Polling reduces EEPROM write wait time by about 3x compared to fixed delays, with both DATA and RDY/!BUSY methods showing similar performance. The main bottleneck is the Arduino’s processing speed, not the AT28Cxx IC itself."
+description: "Polling reduces EEPROM write wait time by about 3x compared to fixed delays. Both DATA and RDY/!BUSY methods show similar performance."
 summary: "Both DATA and RDY/!BUSY polling methods cut EEPROM write wait time by roughly threefold compared to fixed delays. They deliver similar performance and are simple to implement on Arduino. The limiting factor is the Arduino’s processing speed, not the AT28Cxx IC."
 ###
 tags: [eeprom-programmer, datasheet, arduino]
+series: ["EEPROM Programmer"]
+series_order: 6
 ---
 
 ## TLDR

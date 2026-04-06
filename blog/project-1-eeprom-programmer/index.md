@@ -3,8 +3,8 @@ date: 2025-08-27
 ###
 title: "Project: EEPROM Programmer"
 ###
-description: "The EEPROM Programmer project makes it possible to use Arduino platforms with an extended set of pins to read from and write to EEPROM chips from the AT28Cxx family."
-summary: "The EEPROM Programmer project makes it possible to use Arduino platforms with an extended set of pins to read from and write to EEPROM chips from the AT28Cxx family."
+description: "Arduino-based EEPROM programmer for reading and writing AT28Cxx family chips. Supports AT28C04, AT28C16, AT28C64, and AT28C256 via a Python CLI."
+summary: "The EEPROM Programmer project uses Arduino MEGA or DUE to read from and write to EEPROM chips from the AT28Cxx family. A Python CLI provides erase, write, read, and verify operations. The series of posts below covers the full development process, from initial implementation to supported chip details."
 ###
 tags: [project, eeprom-programmer, github]
 ---
@@ -15,7 +15,7 @@ The EEPROM Programmer project makes it possible to use Arduino platforms with an
 
 ![Arduino MEGA and DUE Wiring](images/arduino-wiring.png)
 
-The firmware component of the project is flashed onto an Arduino Mega or Due. The EEPROM chip is then connected to the extended pin header on the board, after which the Python CLI can be used to erase, write, or read binary data.
+The firmware component of the project is flashed onto an Arduino MEGA or DUE. The EEPROM chip is then connected to the extended pin header on the board, after which the Python CLI can be used to erase, write, or read binary data.
 
 This is a series of posts covering various aspects of the programmer, written in the course of developing this project:
 

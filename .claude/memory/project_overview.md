@@ -11,9 +11,10 @@ The site uses the **Blowfish** Hugo theme.
 ## Content sections
 
 - `blog/` — main posts (leaf bundles: `index.md` + `images/`)
-- `projects/` — project overview pages
 - `about/` — author bio (Ilia, works at Meta on AI ASICs, personal microelectronics blog)
 - `tools/` — tools/equipment page
+
+Note: The `projects/` section was removed. Project pages use the `project` tag instead and are accessible via `/tags/project/`. The site menu "Projects" link points to `/tags/project/`.
 
 ## Post series (as of 2026-04)
 

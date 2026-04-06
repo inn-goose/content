@@ -7,6 +7,8 @@ description: "EEPROM Programmer on Arduino optimized with waveform sequencing an
 summary: "Evaluation of EEPROM Programmer performance on Arduino. Overhead from digital I/O measured, and oscilloscope traces confirmed datasheet timing. Active polling of the READY/BUSY pin reduced write latency while maintaining reliability. Sequential write/read verification showed consistent integrity. Future work includes endurance testing, retention studies, and comparing Arduino boards with different clock speeds."
 ###
 tags: [eeprom-programmer, performance, oscilloscope, arduino]
+series: ["EEPROM Programmer"]
+series_order: 2
 ---
 
 ## TLDR

@@ -7,6 +7,8 @@ description: "Arduino + 28C64 EEPROM. Simple API for byte reads/writes, breadboa
 summary: "Practical walkthrough of 28C64 EEPROM on Arduino GIGA. Pin mapping, minimal API for reads/writes, breadboard + LCD UI. Verified operation, observed write-edge vs datasheet mismatch, early-address retention issues, and plans for timing and READY/!BUSY testing."
 ###
 tags: [eeprom-programmer, arduino]
+series: ["EEPROM Programmer"]
+series_order: 1
 ---
 
 ## TLDR

@@ -3,7 +3,7 @@ date: 2025-10-12
 ###
 title: "How to Debug Misconfigured Arduino Pins"
 ###
-description: "Uninitialized or misconfigured Arduino pins can generate unstable or distorted signals, especially during board reset. These fluctuations may lead to data corruption or unpredictable behavior in connected chips such as EEPROMs or DACs."
+description: "Uninitialized Arduino pins generate unstable signals, especially during board reset. These fluctuations can corrupt data in connected chips such as EEPROMs or DACs."
 summary: "Misconfigured or uninitialized Arduino pins generate unstable voltage levels that vary with frequency and signal state. During board reset, all pins enter a floating state, producing undefined signals that can affect connected devices. This can lead to data corruption or unpredictable behavior in chips such as EEPROMs or DACs."
 ###
 tags: [experiments, how-to, arduino, debugging, oscilloscope]
@@ -19,7 +19,7 @@ Improperly initialized Arduino pins distort the transmitted signal and can cause
 
 ![Test Bench with Arduino and Oscilloscope](images/test_bench.png)
 
-For the experiments, I used an oscilloscope with a single probe connected and an Arduino Uno R3 board. The post includes code examples, explanations of correct and incorrect behavior, and oscilloscope waveform screenshots for clarity.
+For the experiments, I used an oscilloscope with a single probe connected and an Arduino UNO R3 board. The post includes code examples, explanations of correct and incorrect behavior, and oscilloscope waveform screenshots for clarity.
 
 Separately from the experiments, I analyze what happens during an Arduino reset, which signals appear on the pins and how they can affect externally connected chips.
 
@@ -204,7 +204,7 @@ Using the `OUTPUT` mode with a `LOW` signal produces the most predictable and co
 
 ## How Arduino Behaves During the Reset
 
-I apply a PWM pulse with a 12 ms period to three pins, each with a slight phase offset, to make the reset cycle visible against the normal 5 V operating amplitude. The reset cycle, triggered by the onboard button, lasts about 1.7 seconds on the Arduino Uno R3. During this period, all pins behave identically, entering the uninitialized state described in the previous section and showing a sawtooth waveform with an amplitude of approximately 1 V.
+I apply a PWM pulse with a 12 ms period to three pins, each with a slight phase offset, to make the reset cycle visible against the normal 5 V operating amplitude. The reset cycle, triggered by the onboard button, lasts about 1.7 seconds on the Arduino UNO R3. During this period, all pins behave identically, entering the uninitialized state described in the previous section and showing a sawtooth waveform with an amplitude of approximately 1 V.
 
 Full Reset Cycle for 3 Pins, 200 ms/div 👇
 ![Reset without Management Pin / Full Cycle](images/reset_02_01.png)
@@ -219,7 +219,7 @@ At the end of the reset cycle, pin initialization restores them to the normal op
 Yellow is the management `LED_BUILTIN` pin, 200 ms/div 👇
 ![Reset with Management Pin / Full Cycle](images/reset_01_01.png)
 
-The behavior of the `LED_BUILTIN` pin 13, which drives the onboard LED, differs from that of other pins on the Arduino Uno. For most of the reset cycle time, the LED pin remains initialized, with two short periods of indeterminacy at the beginning and end of the cycle.
+The behavior of the `LED_BUILTIN` pin 13, which drives the onboard LED, differs from that of other pins on the Arduino UNO. For most of the reset cycle time, the LED pin remains initialized, with two short periods of indeterminacy at the beginning and end of the cycle.
 
 Additionally, the board uses pin 13 to signal the reset process by sending three consecutive pulses at the start of the cycle. This is likely one reason why pin 13 should not be used for interfacing with external devices, as the board reserves it for its internal operations.
 

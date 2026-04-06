@@ -7,6 +7,8 @@ description: "An AD1860 DAC IC is successfully powered and wired to produce a fu
 summary: "The AD1860 DAC IC is correctly wired and produces a valid analog output. A reference schematic from the early 1990s is used to identify non-critical components, and a full-scale sawtooth waveform (±3 V) is generated on one channel using an Arduino. The hardware setup functions as expected; the remaining task is implementing a correct SPI interface capable of handling 18-bit transfers."
 ###
 tags: [dac-spi, ad18xx, ad1860, wiring-diagram]
+series: ["DAC SPI"]
+series_order: 2
 ---
 
 ## TLDR

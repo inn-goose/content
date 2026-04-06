@@ -3,10 +3,12 @@ date: 2025-11-01
 ###
 title: "EEPROM Programmer: Data Corruption on Arduino Serial Connection Reset"
 ###
-description: "When an Arduino establishes a serial connection, it resets, generating unpredictable voltage fluctuations on all chip pins. These transients can trigger unintended write cycles on the EEPROM, corrupting data unless the !WE pin is tied to VCC during read operations."
-summary: "When an Arduino establishes a serial connection, it triggers a board reset that produces transient voltage spikes on the EEPROM pins. These fluctuations can reach up to 2 V, enough to toggle the !WE pin and initiate unintended write operations. As a result, data corruption occurs unless the !WE pin is connected to VCC during read mode to disable writing."
+description: "Arduino serial connection resets the board, producing voltage spikes that can trigger unintended EEPROM writes. Tying the !WE pin to VCC during reads prevents corruption."
+summary: "When an Arduino establishes a serial connection, the board resets and produces transient voltage spikes on the EEPROM pins. These fluctuations can reach up to 2 V, enough to toggle the !WE pin and initiate unintended write operations. Tying the !WE pin to VCC during read mode prevents data corruption."
 ###
 tags: [eeprom-programmer, debugging, data-corruption, oscilloscope, arduino]
+series: ["EEPROM Programmer"]
+series_order: 5
 ---
 
 ## TLDR
