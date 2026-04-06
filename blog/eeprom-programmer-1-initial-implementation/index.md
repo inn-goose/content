@@ -4,10 +4,15 @@ date: 2025-08-28
 title: "EEPROM Programmer: Implementing Initial R/W Interface for AT28C64"
 ###
 description: "Arduino + 28C64 EEPROM. Simple API for byte reads/writes, breadboard with LCD/button, verified basics, noted waveform mismatch and retention quirks."
-summary: "Practical walkthrough of 28C64 EEPROM on Arduino Giga. Pin mapping, minimal API for reads/writes, breadboard + LCD UI. Verified operation, observed write-edge vs datasheet mismatch, early-address retention issues, and plans for timing and READY/!BUSY testing."
+summary: "Practical walkthrough of 28C64 EEPROM on Arduino GIGA. Pin mapping, minimal API for reads/writes, breadboard + LCD UI. Verified operation, observed write-edge vs datasheet mismatch, early-address retention issues, and plans for timing and READY/!BUSY testing."
 ###
 tags: [eeprom-programmer, arduino]
 ---
+
+## TLDR
+
+A basic read/write interface for the AT28C64 EEPROM is implemented using an Arduino GIGA. The chip behaves as expected: data can be written to memory and read back. However, the actual write trigger appears to occur on the falling edge of the control pins, contrary to what the datasheet waveforms suggest. Additionally, data at the beginning of the address space does not reliably survive a power cycle.
+
 
 ## Motivation
 
@@ -15,11 +20,11 @@ I decided to dig into how computers actually work at the very lowest level. To d
 
 I started with [EEPROM](https://en.wikipedia.org/wiki/EEPROM), since it is a fairly straightforward component that is responsible for static data storage, and it supports only two operations: read and write. The pin structure of the chip is also very simple: there is one address bus, one data bus, and just a few pins for controlling the operating mode.
 
-For my experiments I’m using an Arduino, because it allows me to recreate an artificial environment where the component is supposed to work without too much hassle. I picked a specific chip and wrote a small API class for it to work with the Arduino.
+For my experiments I am using an Arduino, because it allows me to recreate an artificial environment where the component is supposed to work without too much hassle. I picked a specific chip and wrote a small API class for it to work with the Arduino.
 
-The chip model is 28C64, which is a static EEPROM with digital rewrite capability. It has 28 pins, and I’m using an Arduino Giga, since the standard Uno model does not have enough pins available. The data bus width is 8 bits, which means it writes one byte into a single cell. The address bus width is 13 bits, so in total it can store 8,192 words.
+The chip model is 28C64, which is a static EEPROM with digital rewrite capability. It has 28 pins, and I am using an Arduino GIGA, since the standard UNO model does not have enough pins available. The data bus width is 8 bits, which means it writes one byte into a single cell. The address bus width is 13 bits, so in total it can store 8,192 words.
 
-In this article I’ll walk through how the basic operations actually work and also highlight some of the subtle aspects of the chip’s behavior that might not be reflected in the datasheet. That’s exactly why I decided to check how well the documented operations match real conditions.
+In this article I will walk through how the basic operations actually work and also highlight some of the subtle aspects of the chip’s behavior that might not be reflected in the datasheet. That is exactly why I decided to check how well the documented operations match real conditions.
 
 
 ## Datasheet
@@ -31,7 +36,7 @@ Key points from the [28C64 Datasheet](https://ww1.microchip.com/downloads/en/dev
 * The types of supported operations — at this stage I only care about reading and writing a single byte
 * The sequence of pin activations required to perform an operation (waveforms)
 
-At this initial stage I am not concerned with tolerances, error handling, or performance characteristics, I just wanted to validate the basic functions of the chip.
+At this initial stage I am not concerned with tolerances, error handling, or performance characteristics. I just wanted to validate the basic functions of the chip.
 
 ![EEPROM 28C64 Pins Layout](images/eeprom-28c64-pins-layout.png)
 
@@ -53,7 +58,7 @@ public:
 }
 ```
 
-I wrote a simple Arduino library that hides the low-level interaction with the chip behind just a couple of read and write functions. Here I’d like to go over some details of the implementation.
+I wrote a simple Arduino library that hides the low-level interaction with the chip behind just a couple of read and write functions. Here I would like to go over some details of the implementation.
 
 The constructor defines how the chip’s pins are connected to the Arduino. This wiring is unique for each board, in this case the pins were connected in a certain order, though the layout may differ in other setups. After that, the `init()` method must be called explicitly, which activates the Arduino pins for either input or output to the chip, and only then can reading and writing begin.
 
@@ -63,7 +68,7 @@ Two separate types of functions are defined for read and write operations:
 
 At the time of writing, the library was not optimized for high-speed operation with the chip. Long delays are used between operations, and the status pin is not used at all. I plan to cover optimization and the chip’s performance characteristics in a separate article.
 
-(*) Note that Arduino Uno is not suitable because it lacks enough digital pins. It has only 14 digital I/O pins (20 if analog pins are reconfigured), while 24 are required to connect the address bus, the data bus, and the control pins. So the minimum workable option here is Arduino Mega.
+(*) Note that Arduino UNO is not suitable because it lacks enough digital pins. It has only 14 digital I/O pins (20 if analog pins are reconfigured), while 24 are required to connect the address bus, the data bus, and the control pins. So the minimum workable option here is Arduino MEGA.
 
 (**) A project with a usage example can be found on my GitHub: [EEPROM Basic RW](https://github.com/inn-goose/eeprom_arduino/tree/main/eeprom_basic_rw)
 

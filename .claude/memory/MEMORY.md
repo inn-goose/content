@@ -1,2 +1,4 @@
 - [Content repo overview](project_overview.md) — Hugo content submodule structure, post series, related repos
 - [User profile](user_profile.md) — Ilia, Meta AI ASICs engineer, microelectronics hobbyist, goose.sh blog author
+- [Blog writing style](feedback_writing_style.md) — Formal tone, no contractions, ALL-CAPS board names, TLDR-first, precise units
+- [Commit policy](feedback_commit_policy.md) — Never bundle .claude/memory changes with other work; commit only when asked

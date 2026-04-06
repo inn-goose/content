@@ -47,7 +47,7 @@ The waveform for this operation is straightforward and includes the following st
 5. If the values match, the write operation has completed successfully and the polling loop can be terminated early.
 6. If not, repeat the sequence starting from step 1.
 
-A large number of pin state transitions and digital reads takes about 250 µs on an Arduino Mega. As a result, a typical write operation completes within two polling cycles. By the second cycle, the correct data already appears on the bus and the loop terminates. For verification, I used dedicated EEPROM Programmer debug commands: `get_write_op_wait_time_usec()` and `get_write_op_wait_cycles()`. These commands showed consistent results: an average duration of about 450 µs and a total of 2 polling cycles.
+A large number of pin state transitions and digital reads takes about 250 µs on an Arduino MEGA. As a result, a typical write operation completes within two polling cycles. By the second cycle, the correct data already appears on the bus and the loop terminates. For verification, I used dedicated EEPROM Programmer debug commands: `get_write_op_wait_time_usec()` and `get_write_op_wait_cycles()`. These commands showed consistent results: an average duration of about 450 µs and a total of 2 polling cycles.
 
 
 ## RDY/!BUSY Pin Polling
@@ -83,4 +83,4 @@ Arduino allows implementing both polling procedures without any logical limitati
 
 With either polling method, the overall wait time is reduced by roughly a factor of three compared to the fixed threshold delay. Therefore, implementing one of these procedures is recommended, as the added complexity is moderate.
 
-However, the overall write time using the EEPROM Programmer and Arduino Mega remains relatively long compared to the XGecu. Using an Arduino Giga can improve both write and read performance, since the bottleneck lies not in the EEPROM chip itself but in the Arduino’s processing speed.
+However, the overall write time using the EEPROM Programmer and Arduino MEGA remains relatively long compared to the XGecu. Using an Arduino GIGA can improve both write and read performance, since the bottleneck lies not in the EEPROM chip itself but in the Arduino’s processing speed.

@@ -20,7 +20,7 @@ During this reset period, all board pins remain in an **uninitialized** state fo
 
 ## TLDR
 
-This post describes the **JSON-RPC API** implementation applied to the [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer) project. Details of the [Serial JSON-RPC library](https://github.com/inn-goose/serial-json-rpc-arduino) itself are covered in a separate post: [Project: Serial JSON-RPC for Arduino]((/blog/project-2-serial-json-rpc-arduino/)). The library abstracts protocol implementation details, enabling focus on business logic on both the programmer and client sides.
+This post describes the **JSON-RPC API** implementation applied to the [EEPROM Programmer](https://github.com/inn-goose/eeprom-programmer) project. Details of the [Serial JSON-RPC library](https://github.com/inn-goose/serial-json-rpc-arduino) itself are covered in a separate post: [Project: Serial JSON-RPC for Arduino](/blog/project-2-serial-json-rpc-arduino/). The library abstracts protocol implementation details, enabling focus on business logic on both the programmer and client sides.
 
 Due to the Arduino board’s limited memory, the design follows a “smart client, simple board” model: the client contains most of the business logic, while the board implements only basic read and write operations for the memory chip.
 
@@ -63,7 +63,7 @@ The programmer implements a set of basic operational primitives that the CLI com
 
 ### Write Operation
 
-To write first 4 bits, send these commands one by one using Arduino IDE's *Serial Monitor* on `115200` baud.
+To write the first 4 bytes, send these commands one by one using Arduino IDE's *Serial Monitor* on `115200` baud.
 
 ```json
 {"jsonrpc":"2.0", "id":0, "method": "init_chip", "params": ["AT28C64"]}
@@ -75,7 +75,7 @@ To write first 4 bits, send these commands one by one using Arduino IDE's *Seria
 
 ### Read Operation
 
-To read first 4 bits, send these commands one by one using Arduino IDE's *Serial Monitor* on `115200` baud.
+To read the first 4 bytes, send these commands one by one using Arduino IDE's *Serial Monitor* on `115200` baud.
 
 ```json
 {"jsonrpc":"2.0", "id":0, "method": "init_chip", "params": ["AT28C64"]}

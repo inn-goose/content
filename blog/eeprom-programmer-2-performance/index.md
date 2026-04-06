@@ -9,6 +9,11 @@ summary: "Evaluation of EEPROM Programmer performance on Arduino. Overhead from 
 tags: [eeprom-programmer, performance, oscilloscope, arduino]
 ---
 
+## TLDR
+
+Read and write operations are optimized by following the datasheet waveform sequences and eliminating unnecessary delays. Active polling of the `READY/BUSY` pin reduces write latency from 1.4 ms to approximately 0.6 ms per byte without compromising reliability. A single read operation completes in about 4 µs. Sequential write/read verification across 1024 cells confirms consistent data integrity.
+
+
 ## Motivation
 
 In my previous post, I described a basic implementation of the EEPROM Programmer and demonstrated, in a simple example, how to read and write a few data cells. At that point, performance and operation speed were not important, as the goal was only to provide an initial demonstration.
@@ -41,7 +46,7 @@ Step 4* is the critical step, where Arduino platform overhead becomes evident. T
 
 However, as the oscilloscope measurements indicate, the time between two pin write operations is about 120 ns. This is execution overhead, since the program is written in C and each function expands into a large set of low-level instructions. This delta between operations is sufficient for the value to appear on the Data Bus.
 
-The Arduino Giga runs at 240 MHz, 20x higher than the Mega’s 16 MHz, so the overhead between pin writes may scale accordingly. I plan to run measurements of this kind in a future article.
+The Arduino GIGA runs at 240 MHz, 20x higher than the MEGA’s 16 MHz, so the overhead between pin writes may scale accordingly. I plan to run measurements of this kind in a future article.
 
 
 ## Write Waveforms
@@ -128,7 +133,7 @@ I determined that a single digital pin read/write operation takes roughly 120 
 
 For write operations, the picture is similar regarding execution overhead. The average operation execution time is 607 µs, with an average `READY/BUSY` pin polling wait of 601 µs, leaving about 6 µs for Arduino-side operations. This is slightly higher than for reading, due to data conversion and a 1 µs `delay()` before polling. The polling process itself could be sped up by checking the status every 20 µs, reducing total wait time by roughly 100 µs.
 
-The achieved read values are strong, as the datasheet specifies a maximum wait of 1 ms, whereas I achieve 0.6 ms.
+The achieved read times are well within spec, as the datasheet specifies a maximum wait of 1 ms, whereas I achieve 0.6 ms.
 
 
 ## Data Verification
@@ -146,4 +151,4 @@ This verification is unrelated to the corruption discussed earlier, since here w
 
 (3) Assemble a breadboard setup with a ZIF socket to enable quick replacement of EEPROM chips for validation and verification.
 
-(4) Compare the overhead of `digitalWrite()` and `digitalRead()` operations on Arduino Mega and Arduino Giga, accounting for the 20x clock-speed difference.
+(4) Compare the overhead of `digitalWrite()` and `digitalRead()` operations on Arduino MEGA and Arduino GIGA, accounting for the 20x clock-speed difference.

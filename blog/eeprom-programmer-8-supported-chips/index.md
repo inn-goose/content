@@ -52,7 +52,7 @@ The appropriate DIP24 or DIP28 layout should be selected depending on the chip t
 ![DIP24 Wiring Diagram](images/dip24-wiring-diagram.png)
 ![DIP28 Wiring Diagram](images/dip28-wiring-diagram.png)
 
-[Data Corruption on Arduino Serial Connection Reset](/blog/eeprom-programmer-5-data-corruption/) post describes Arduino hardware characteristics and explains why an Read-Only Jumper wire must be used during read operations to avoid data corruption. In both the wiring diagrams (purple) and the photographs (yellow), the jumper wire position is indicated for both DIP24 and DIP28 chips.
+[Data Corruption on Arduino Serial Connection Reset](/blog/eeprom-programmer-5-data-corruption/) post describes Arduino hardware characteristics and explains why a Read-Only Jumper wire must be used during read operations to avoid data corruption. In both the wiring diagrams (purple) and the photographs (yellow), the jumper wire position is indicated for both DIP24 and DIP28 chips.
 
 ![DIP24 Read Only Jumper](images/dip24-read-only-jumper.png)
 ![DIP24 Read Only Jumper](images/dip28-read-only-jumper.png)
@@ -141,7 +141,7 @@ It is worth noting separately that, despite the significant improvement in read 
 (*) AT28C256 Write time in page mode and byte-mode; page mode is 3 times faster
 
 
-## Supported EEPROM Chips in Details
+## Supported EEPROM Chips in Detail
 
 ![Supported EEPROM Chips](images/supported-eeprom-chips.png)
 
@@ -209,7 +209,7 @@ file: `./eeprom_programmer/eeprom_programmer_lib.h`
 ```
 
 | Arduino | 1B Read AVG (µs) | Full Memory Read (sec) | 1B Write AVG (µs) | Full Memory Write (sec) |
-| -- | :--: | :--: | :--: | :--: | :--: |
+| -- | :--: | :--: | :--: | :--: |
 | MEGA, 16 MHz | 490 | 84 | 6400 | 305 |
 | DUE, 84 MHz | 125 | 56 | 210/6000* | 85/255* |
 

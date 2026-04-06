@@ -9,16 +9,7 @@ summary: "The EEPROM Programmer initially returned corrupted data. I tested wiri
 tags: [eeprom-programmer, debugging, data-corruption, oscilloscope, arduino]
 ---
 
-**EEPROM Programmer** is my project for reading and writing the 28C64 EEPROM, while also helping me learn:
-* how the EEPROM chip works and what its limitations are
-* how to create a virtual environment for this chip using Arduino
-* how to translate waveforms from the datasheet into C++ code
-* how to make this code both efficient and reliable
-
-Here are a couple of introductory posts ([Implementing Initial R/W Interface for AT28C64](/blog/eeprom-programmer-1-initial-implementation/), [Measuring Performance with Oscilloscope](/blog/eeprom-programmer-2-performance/)) on the topic and the project itself on [GitHub](https://github.com/inn-goose/eeprom-programmer), still in development.
-
-
-### TLDR
+## TLDR
 
 ![Measure EEPROM Programmer for Arduino with an Oscilloscope](images/measure-with-oscilloscope.jpeg)
 

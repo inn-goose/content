@@ -3,8 +3,8 @@ date: 2025-12-22
 ###
 title: "EEPROM Programmer: AT28C256's Page Write Operation"
 ###
-description: "AT28C256 page writes are timing-critical: they fail on Arduino Mega but work reliably on faster platforms like Arduino Due."
-summary: "Page-write support in the AT28C256 can significantly speed up programming, but it depends on tight timing. The Arduino Mega is too slow to use this feature reliably, while faster platforms like the Arduino Due make it practical and stable."
+description: "AT28C256 page writes are timing-critical: they fail on Arduino MEGA but work reliably on faster platforms like Arduino DUE."
+summary: "Page-write support in the AT28C256 can significantly speed up programming, but it depends on tight timing. The Arduino MEGA is too slow to use this feature reliably, while faster platforms like the Arduino DUE make it practical and stable."
 ###
 tags: [eeprom-programmer, datasheet, performance, arduino]
 ---
@@ -15,9 +15,9 @@ tags: [eeprom-programmer, datasheet, performance, arduino]
 
 The **AT28C256** chip has a feature I had not encountered in other devices from this family: it supports a **Page Write mode**, which can potentially reduce the time required to program the entire memory by an order of magnitude.
 
-Based on my reading of the [AT28C256 datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf), the chip includes an internal high-speed volatile buffer. Writes to this buffer do not require `DATA` polling, which makes it possible to accumulate 64 bits of data before committing them to non-volatile storage in a single operation.
+Based on my reading of the [AT28C256 datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf), the chip includes an internal high-speed volatile buffer. Writes to this buffer do not require `DATA` polling, which makes it possible to accumulate 64 bytes of data before committing them to non-volatile storage in a single operation.
 
-In general, write speed is the primary bottleneck of EEPROM devices. When programming the AT28C256 byte by byte, each write—followed by polling for completion—can take up to 6 ms per byte. Part of this can be attributed to limitations of the EEPROM programmer platform itself, but with a total capacity of 256K, these delays quickly become excessive. In practice, programming the entire chip using an Arduino MEGA takes more than five minutes.
+In general, write speed is the primary bottleneck of EEPROM devices. When programming the AT28C256 byte by byte, each write—followed by polling for completion—can take up to 6 ms per byte. Part of this can be attributed to limitations of the EEPROM programmer platform itself, but with a total capacity of 256 Kbit, these delays quickly become excessive. In practice, programming the entire chip using an Arduino MEGA takes more than five minutes.
 
 In this article, I describe the constraints I ran into while implementing this feature in an EEPROM programmer, and explain why this approach does not work on the Arduino MEGA.
 

@@ -25,7 +25,7 @@ I analyzed this process in detail in a [separate post with experiments](/blog/ex
 
 3. According to the [datasheet](https://ww1.microchip.com/downloads/en/devicedoc/doc0001h.pdf), a 2 V amplitude is sufficient to toggle between `HIGH` and `LOW` states on the management `!WE` pin, which means it can trigger a write operation.
 
-This part is somewhat contradictory: measurements show the oscillation amplitude slightly below 2 V, yet the observed data corruption clearly indicates that it’s enough to initiate a write.
+This part is somewhat contradictory: measurements show the oscillation amplitude slightly below 2 V, yet the observed data corruption clearly indicates that it is enough to initiate a write.
 
 As a result, random values appear in random memory cells because both the address and data buses receive random `HIGH` and `LOW` states at the moment when the `!WE` pin is unintentionally activated.
 
@@ -44,17 +44,17 @@ The probe impedance was pre-calibrated using the built-in signal generator, so t
 Reset Cycle Noise, 500 ms/div 👇
 ![Reset Cycle Noise / Full Cycle / 500 ms/div](images/reset-noise-full-cycle.png)
 
-The full reset cycle lasts about 3 seconds. During this time, the 5 V supply line (yellow trace) remains stable, indicating that the chip is powered and responding to incoming pin signals. Meanwhile, the `!WC` pin, the data pin, and in fact all other chip pins, exhibit noise with voltage fluctuations of up to 2 V in amplitude.
+The full reset cycle lasts about 3 seconds. During this time, the 5 V supply line (yellow trace) remains stable, indicating that the chip is powered and responding to incoming pin signals. Meanwhile, the `!WE` pin, the data pin, and in fact all other chip pins, exhibit noise with voltage fluctuations of up to 2 V in amplitude.
 
 Reset Cycle Noise, 100 ms/div 👇
 ![Reset Cycle Noise / 100 ms/div](images/reset-noise-100ms-div.png)
 
-The spikes on the pins are relatively slow. In the graph above, each bar on the right represents a 64-bit page write sequence. As a result, the EEPROM chip has enough time to respond to these random transitions and write rubbish data into random memory cells.
+The spikes on the pins are relatively slow. In the graph above, each bar on the right represents a 64-byte page write sequence. As a result, the EEPROM chip has enough time to respond to these random transitions and write rubbish data into random memory cells.
 
 Reset Cycle Noise, 5 ms/div 👇
 ![Reset Cycle Noise / 5 ms/div](images/reset-noise-5ms-div.png)
 
-One reset oscillation cycle on the Arduino Mega lasts about 20 ms and consists of a phase of chaotic noise followed by a sinusoid-like segment. The sinusoidal amplitude is approximately 1 V.
+One reset oscillation cycle on the Arduino MEGA lasts about 20 ms and consists of a phase of chaotic noise followed by a sinusoid-like segment. The sinusoidal amplitude is approximately 1 V.
 
 Reset Cycle Noise, 1 ms/div 👇
 ![Reset Cycle Noise / 1 ms/div](images/reset-noise-1ms-div-v-amp.png)
@@ -93,7 +93,7 @@ This part is somewhat contradictory, since `HIGH` and `LOW` levels are typically
 Do not use a chip containing important data for this experiment, as the data will be erased during the process.
 {{< /alert >}}
 
-In practice, the Arduino corrupts the chip data before reading it, by sending noisy signals to all chip pins.
+In practice, the Arduino corrupts the chip's data before reading it, by sending noisy signals to all chip pins.
 
 To reproduce data corruption, perform the following steps:
 
