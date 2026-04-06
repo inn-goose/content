@@ -1,0 +1,2 @@
+- [Content repo overview](project_overview.md) — Hugo content submodule structure, post series, related repos
+- [User profile](user_profile.md) — Ilia, Meta AI ASICs engineer, microelectronics hobbyist, goose.sh blog author
