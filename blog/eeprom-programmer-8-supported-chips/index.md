@@ -11,9 +11,6 @@ series: ["EEPROM Programmer"]
 series_order: 8
 ---
 
-{{< alert "fire" >}}
-During read operations with the EEPROM Programmer, the chip's `!WE` pin **MUST** be connected to `VCC` using a jumper wire to disable the write mode. Otherwise, invoking the CLI may corrupt data on the chip due to Arduino's internal behavior. [Details](/blog/eeprom-programmer-5-data-corruption/)
-{{< /alert >}}
 
 ## TLDR
 
@@ -28,6 +25,10 @@ The project assumes the use of Arduino platforms with an extended number of I/O 
 At the end of the post, a list of chips is provided for which support was planned but could not be implemented due to hardware-specific constraints. Requests for additional chip support can be submitted via the repository [discussion section](https://github.com/inn-goose/eeprom-programmer/discussions), or proposed directly through a pull request.
 
 It should be noted that both read and write speeds are orders of magnitude lower than when using dedicated commercial programmers such as XGecu.
+
+{{< alert "fire" >}}
+During read operations with the EEPROM Programmer, the chip's `!WE` pin **MUST** be connected to `VCC` using a jumper wire to disable the write mode. Otherwise, invoking the CLI may corrupt data on the chip due to Arduino's internal behavior. [Details](/blog/eeprom-programmer-5-data-corruption/)
+{{< /alert >}}
 
 
 ## How to Connect
